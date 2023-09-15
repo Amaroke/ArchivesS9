@@ -1,4 +1,4 @@
-package fr.fst.m2.dto;
+package amaroke.projet_cm.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

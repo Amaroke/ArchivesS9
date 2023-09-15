@@ -1,4 +1,4 @@
-package fr.fst.m2;
+package amaroke.projet_cm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
