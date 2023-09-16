@@ -1,6 +1,7 @@
 package amaroke.projet_cm.controller;
 
 import amaroke.projet_cm.dto.ErrorMessageDto;
+import amaroke.projet_cm.exceptions.LivreAlreadyExists;
 import amaroke.projet_cm.exceptions.LivreNotFoundException;
 import amaroke.projet_cm.exceptions.NullListException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class ExceptionConfig {
     @ResponseBody
     public ErrorMessageDto internalServerError(Exception e) {
         log.error(e.getMessage());
-        return new ErrorMessageDto("INTERNAL_ERROR", null);
+        return new ErrorMessageDto("INTERNAL_ERROR", e.getMessage());
     }
 
     @ExceptionHandler(value = LivreNotFoundException.class)
@@ -36,6 +37,14 @@ public class ExceptionConfig {
     public ErrorMessageDto internalServerError(NullListException e) {
         log.error(e.getMessage());
         return new ErrorMessageDto("NOT_FOUND", e.getMessage());
+    }
+
+    @ExceptionHandler(value = LivreAlreadyExists.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorMessageDto internalServerError(LivreAlreadyExists e) {
+        log.error(e.getMessage());
+        return new ErrorMessageDto("BAD_REQUEST", e.getMessage());
     }
 
 }
