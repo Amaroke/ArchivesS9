@@ -18,7 +18,7 @@ ASSUME Assumption ==
 -----------------------------------------------------------------------------
 (*
 --algorithm BlockingQueue {
-    variables buffer = << >>, waitSet = {};
+    variables buffer = << >>, waitP = {}, waitC = {};
 
     define {
         isfull(b) == Len(b) = BufCapacity
@@ -26,13 +26,26 @@ ASSUME Assumption ==
     }
 
     macro wait(id) {
-        waitSet := waitSet \union {id};
+        if(id \in Producers) {
+            waitP := waitP \union {id};
+        }
+        else {
+            waitC := waitC \union {id};
+        }
     }
 
-    macro notify() {
-        if (waitSet # {}) {
-            with (t \in waitSet) {
-                waitSet := waitSet \ {t};
+    macro notifyC() {
+        if (waitC # {}) {
+            with (t \in waitC) {
+                waitC := waitC \ {t};
+            }
+        }
+    }
+
+    macro notifyP() {
+        if (waitP # {}) {
+            with (t \in waitP) {
+                waitP := waitP \ {t};
             }
         }
     }
@@ -43,7 +56,7 @@ ASSUME Assumption ==
         }
         else {
             buffer := Append(buffer, id);
-            notify();
+            notifyC();
         }
     }
 
@@ -53,63 +66,74 @@ ASSUME Assumption ==
         }
         else {
             buffer := Tail(buffer);
-            notify();
+            notifyP();
         }
     }
     
 
     process (p \in Producers) {
 p0:     while (TRUE) {
-            await(self \notin waitSet);
+            await(self \notin waitP);
             put(self);
         }
     }
 
     process (c \in Consumers) {
 c0:     while (TRUE) {
-            await(self \notin waitSet);
+            await(self \notin waitC);
             get(self);
        }
     }
 }
 *)
-\* BEGIN TRANSLATION (chksum(pcal) = "6ba7a79a" /\ chksum(tla) = "a9f6c116")
-VARIABLES buffer, waitSet
+\* BEGIN TRANSLATION (chksum(pcal) = "f5c8e8d0" /\ chksum(tla) = "191da49c")
+VARIABLES buffer, waitP, waitC
 
 (* define statement *)
 isfull(b) == Len(b) = BufCapacity
 isempty(b) == Len(b) = 0
 
 
-vars == << buffer, waitSet >>
+vars == << buffer, waitP, waitC >>
 
 ProcSet == (Producers) \cup (Consumers)
 
 Init == (* Global variables *)
         /\ buffer = << >>
-        /\ waitSet = {}
+        /\ waitP = {}
+        /\ waitC = {}
 
-p(self) == /\ (self \notin waitSet)
+p(self) == /\ (self \notin waitP)
            /\ IF isfull(buffer)
-                 THEN /\ waitSet' = (waitSet \union {self})
+                 THEN /\ IF self \in Producers
+                            THEN /\ waitP' = (waitP \union {self})
+                                 /\ waitC' = waitC
+                            ELSE /\ waitC' = (waitC \union {self})
+                                 /\ waitP' = waitP
                       /\ UNCHANGED buffer
                  ELSE /\ buffer' = Append(buffer, self)
-                      /\ IF waitSet # {}
-                            THEN /\ \E t \in waitSet:
-                                      waitSet' = waitSet \ {t}
+                      /\ IF waitC # {}
+                            THEN /\ \E t \in waitC:
+                                      waitC' = waitC \ {t}
                             ELSE /\ TRUE
-                                 /\ UNCHANGED waitSet
+                                 /\ waitC' = waitC
+                      /\ waitP' = waitP
 
-c(self) == /\ (self \notin waitSet)
+c(self) == /\ (self \notin waitC)
            /\ IF isempty(buffer)
-                 THEN /\ waitSet' = (waitSet \union {self})
+                 THEN /\ IF self \in Producers
+                            THEN /\ waitP' = (waitP \union {self})
+                                 /\ waitC' = waitC
+                            ELSE /\ waitC' = (waitC \union {self})
+                                 /\ waitP' = waitP
                       /\ UNCHANGED buffer
                  ELSE /\ buffer' = Tail(buffer)
-                      /\ IF waitSet # {}
-                            THEN /\ \E t \in waitSet:
-                                      waitSet' = waitSet \ {t}
+                      /\ IF waitP # {}
+                            THEN /\ \E t \in waitP:
+                                      waitP' = waitP \ {t}
                             ELSE /\ TRUE
-                                 /\ UNCHANGED waitSet
+                                 /\ waitP' = waitP
+                      /\ waitC' = waitC
 
 Next == (\E self \in Producers: p(self))
            \/ (\E self \in Consumers: c(self))

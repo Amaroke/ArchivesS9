@@ -1,0 +1,55 @@
+strict digraph DiskGraph {
+nodesep=0.35;
+subgraph cluster_graph {
+color="white";
+-8259996325900617220 [label="/\\ buffer = <<>>\n/\\ waitC = {}\n/\\ waitP = {}",style = filled]
+-8259996325900617220 -> 4019885442289409643 [label="",color="black",fontcolor="black"];
+4019885442289409643 [label="/\\ buffer = <<p1>>\n/\\ waitC = {}\n/\\ waitP = {}"];
+-8259996325900617220 -> 858966424174037523 [label="",color="black",fontcolor="black"];
+858966424174037523 [label="/\\ buffer = <<p2>>\n/\\ waitC = {}\n/\\ waitP = {}"];
+-8259996325900617220 -> -3862658051799236866 [label="",color="black",fontcolor="black"];
+-3862658051799236866 [label="/\\ buffer = <<>>\n/\\ waitC = {c1}\n/\\ waitP = {}"];
+4019885442289409643 -> 4359142640917667327 [label="",color="black",fontcolor="black"];
+4359142640917667327 [label="/\\ buffer = <<p1>>\n/\\ waitC = {}\n/\\ waitP = {p1}"];
+4019885442289409643 -> 7467738391235639612 [label="",color="black",fontcolor="black"];
+7467738391235639612 [label="/\\ buffer = <<p1>>\n/\\ waitC = {}\n/\\ waitP = {p2}"];
+4019885442289409643 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+858966424174037523 -> -6779847381783858626 [label="",color="black",fontcolor="black"];
+-6779847381783858626 [label="/\\ buffer = <<p2>>\n/\\ waitC = {}\n/\\ waitP = {p1}"];
+858966424174037523 -> -417338224232671491 [label="",color="black",fontcolor="black"];
+-417338224232671491 [label="/\\ buffer = <<p2>>\n/\\ waitC = {}\n/\\ waitP = {p2}"];
+858966424174037523 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+-3862658051799236866 -> 4019885442289409643 [label="",color="black",fontcolor="black"];
+-3862658051799236866 -> 858966424174037523 [label="",color="black",fontcolor="black"];
+4359142640917667327 -> -8239571024268715636 [label="",color="black",fontcolor="black"];
+-8239571024268715636 [label="/\\ buffer = <<p1>>\n/\\ waitC = {}\n/\\ waitP = {p1, p2}"];
+4359142640917667327 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+7467738391235639612 -> -8239571024268715636 [label="",color="black",fontcolor="black"];
+7467738391235639612 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+-6779847381783858626 -> -5411886909261855191 [label="",color="black",fontcolor="black"];
+-5411886909261855191 [label="/\\ buffer = <<p2>>\n/\\ waitC = {}\n/\\ waitP = {p1, p2}"];
+-6779847381783858626 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+-417338224232671491 -> -5411886909261855191 [label="",color="black",fontcolor="black"];
+-417338224232671491 -> -8259996325900617220 [label="",color="black",fontcolor="black"];
+-8239571024268715636 -> -1156090309865880313 [label="",color="black",fontcolor="black"];
+-1156090309865880313 [label="/\\ buffer = <<>>\n/\\ waitC = {}\n/\\ waitP = {p2}"];
+-8239571024268715636 -> -5464897835047706172 [label="",color="black",fontcolor="black"];
+-5464897835047706172 [label="/\\ buffer = <<>>\n/\\ waitC = {}\n/\\ waitP = {p1}"];
+-5411886909261855191 -> -1156090309865880313 [label="",color="black",fontcolor="black"];
+-5411886909261855191 -> -5464897835047706172 [label="",color="black",fontcolor="black"];
+-1156090309865880313 -> 7467738391235639612 [label="",color="black",fontcolor="black"];
+-1156090309865880313 -> 7679648476619239334 [label="",color="black",fontcolor="black"];
+7679648476619239334 [label="/\\ buffer = <<>>\n/\\ waitC = {c1}\n/\\ waitP = {p2}"];
+-5464897835047706172 -> -6779847381783858626 [label="",color="black",fontcolor="black"];
+-5464897835047706172 -> 3553307375135886181 [label="",color="black",fontcolor="black"];
+3553307375135886181 [label="/\\ buffer = <<>>\n/\\ waitC = {c1}\n/\\ waitP = {p1}"];
+7679648476619239334 -> 7467738391235639612 [label="",color="black",fontcolor="black"];
+3553307375135886181 -> -6779847381783858626 [label="",color="black",fontcolor="black"];
+{rank = same; -8259996325900617220;}
+{rank = same; 858966424174037523;-3862658051799236866;4019885442289409643;}
+{rank = same; 4359142640917667327;-6779847381783858626;7467738391235639612;-417338224232671491;}
+{rank = same; -5411886909261855191;-8239571024268715636;}
+{rank = same; -1156090309865880313;-5464897835047706172;}
+{rank = same; 3553307375135886181;7679648476619239334;}
+}
+}
