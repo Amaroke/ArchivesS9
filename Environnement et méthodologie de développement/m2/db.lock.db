@@ -1,0 +1,6 @@
+#FileLock
+#Wed Sep 20 17:23:40 CEST 2023
+hostName=PC-Amaroke
+id=18ab3308cf851aa1ee98db3ccef0c1aa0b3f5636008
+method=file
+server=192.168.43.46\:61499

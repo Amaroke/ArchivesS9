@@ -1,0 +1,192 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.16 of 31 December 2020 (rev: cdddf55)
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 75 and seed 5480194752751984007 with 1 worker on 8 cores with 3621MB heap and 64MB offheap memory [pid: 7304] (Windows 11 10.0 amd64, Oracle Corporation 20.0.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file C:\Users\hugoa\ArchivesS9\Vérification algorithmique\Fichiers 20-09\BlockingQueue.tla
+Parsing file C:\Users\hugoa\AppData\Local\Temp\Naturals.tla
+Parsing file C:\Users\hugoa\AppData\Local\Temp\Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module BlockingQueue
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2023-09-20 17:18:02)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2023-09-20 17:18:02.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2114:1 @!@!@
+Deadlock reached.
+@!@!@ENDMSG 2114 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ buffer = <<>>
+/\ waitSet = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {p1}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {p1, p2}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <c line 103, col 12 to line 112, col 53 of module BlockingQueue>
+/\ buffer = <<>>
+/\ waitSet = {p2}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <c line 103, col 12 to line 112, col 53 of module BlockingQueue>
+/\ buffer = <<>>
+/\ waitSet = {p2, c1}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {c1}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {p1, c1}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <p line 92, col 12 to line 101, col 53 of module BlockingQueue>
+/\ buffer = <<p1>>
+/\ waitSet = {p1, p2, c1}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2023-09-20 17:18:02
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 88, col 1 to line 88, col 4 of module BlockingQueue>: 2:2
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 89, col 9 to line 90, col 23 of module BlockingQueue: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<p line 92, col 1 to line 92, col 7 of module BlockingQueue>: 16:34
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 92, col 16 to line 92, col 34 of module BlockingQueue: 85
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 92, col 16 to line 92, col 19 of module BlockingQueue: 54
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 92, col 28 to line 92, col 34 of module BlockingQueue: 54
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 93, col 18 to line 93, col 31 of module BlockingQueue: 31
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 94, col 26 to line 94, col 59 of module BlockingQueue: 20
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 95, col 26 to line 95, col 41 of module BlockingQueue: 20
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 96, col 26 to line 96, col 55 of module BlockingQueue: 11
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 97, col 29 to line 97, col 40 of module BlockingQueue: 11
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 99, col 39 to line 99, col 62 of module BlockingQueue: 11
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 98, col 46 to line 98, col 52 of module BlockingQueue: 8
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 100, col 37 to line 100, col 40 of module BlockingQueue: 3
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 101, col 37 to line 101, col 53 of module BlockingQueue: 3
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<c line 103, col 1 to line 103, col 7 of module BlockingQueue>: 5:16
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 103, col 16 to line 103, col 34 of module BlockingQueue: 36
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 103, col 16 to line 103, col 19 of module BlockingQueue: 23
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 103, col 28 to line 103, col 34 of module BlockingQueue: 23
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 104, col 18 to line 104, col 32 of module BlockingQueue: 13
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 105, col 26 to line 105, col 59 of module BlockingQueue: 4
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 106, col 26 to line 106, col 41 of module BlockingQueue: 4
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 107, col 26 to line 107, col 47 of module BlockingQueue: 9
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 108, col 29 to line 108, col 40 of module BlockingQueue: 9
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 110, col 39 to line 110, col 62 of module BlockingQueue: 10
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 109, col 46 to line 109, col 52 of module BlockingQueue: 7
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 111, col 37 to line 111, col 40 of module BlockingQueue: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 112, col 37 to line 112, col 53 of module BlockingQueue: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(9) at 2023-09-20 17:18:02: 40 states generated (4?067 s/min), 22 distinct states found (2?237 ds/min), 1 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+40 states generated, 22 distinct states found, 1 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 9.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 3 and the 95th percentile is 2).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 597ms at (2023-09-20 17:18:02)
+@!@!@ENDMSG 2186 @!@!@
