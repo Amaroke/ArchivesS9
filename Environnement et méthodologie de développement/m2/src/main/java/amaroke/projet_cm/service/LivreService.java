@@ -28,9 +28,8 @@ public class LivreService {
     public void addLivre(LivreEntity livreDto) {
         if (livreRespository.existsById(livreDto.getId())) {
             throw new LivreAlreadyExists("Livre with id " + livreDto.getId() + " already exists");
-        } else {
-            livreRespository.save(livreDto);
         }
+        livreRespository.save(livreDto);
     }
 
     public void updateLivre(Integer livreId, String titre) {

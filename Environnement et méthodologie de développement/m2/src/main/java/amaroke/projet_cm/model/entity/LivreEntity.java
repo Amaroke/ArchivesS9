@@ -1,5 +1,6 @@
 package amaroke.projet_cm.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,6 +33,6 @@ public class LivreEntity {
 
     @ManyToMany
     @JsonProperty("bibliotheques")
-    List<BiblioEntity> bibliotheques;
+    List<BiblioEntity> bibliotheques = new ArrayList<>();
 
 }
