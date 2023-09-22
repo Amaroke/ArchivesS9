@@ -52,14 +52,9 @@ public class LivreController {
 
     @PostMapping("")
     public void addLivre(@RequestBody @Valid LivreDto livreDto) {
-        if (livres == null) {
-            throw new NullListException("No livres found");
-        } else {
-            if (livres.stream().filter(livre -> livre.getId().equals(livreDto.getId())).findFirst().isPresent()) {
-                throw new LivreAlreadyExists("Livre with id " + livreDto.getId() + " already exists");
-            } else {
-                livres.add(livreDto);
-            }
+        if (livres.stream().anyMatch(livre -> livre.getId().equals(livreDto.getId()))) {
+            throw new LivreAlreadyExists("Livre with id " + livreDto.getId() + " already exists");
         }
+        livres.add(livreDto);
     }
 }
