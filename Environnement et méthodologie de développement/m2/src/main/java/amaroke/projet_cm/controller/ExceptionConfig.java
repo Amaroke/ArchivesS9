@@ -1,6 +1,6 @@
 package amaroke.projet_cm.controller;
 
-import amaroke.projet_cm.exception.BibblioAlreadyExists;
+import amaroke.projet_cm.exception.BiblioAlreadyExists;
 import amaroke.projet_cm.exception.BiblioNotFoundException;
 import amaroke.projet_cm.exception.LivreAlreadyExists;
 import amaroke.projet_cm.exception.LivreNotFoundException;
@@ -57,10 +57,10 @@ public class ExceptionConfig {
         return new ErrorMessageDto("BAD_REQUEST", e.getMessage());
     }
 
-    @ExceptionHandler(value = BibblioAlreadyExists.class)
+    @ExceptionHandler(value = BiblioAlreadyExists.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorMessageDto internalServerError(BibblioAlreadyExists e) {
+    public ErrorMessageDto internalServerError(BiblioAlreadyExists e) {
         log.error(e.getMessage());
         return new ErrorMessageDto("BAD_REQUEST", e.getMessage());
     }

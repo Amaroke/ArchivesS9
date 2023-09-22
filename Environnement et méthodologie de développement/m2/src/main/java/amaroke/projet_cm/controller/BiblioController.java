@@ -1,5 +1,6 @@
 package amaroke.projet_cm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.validation.annotation.Validated;
@@ -11,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import amaroke.projet_cm.model.dto.request.PostAddLivreToBiblioRequestDto;
+import amaroke.projet_cm.model.dto.request.PostAddLivreToBiblioDto;
 import amaroke.projet_cm.model.dto.request.PostBiblioDto;
 import amaroke.projet_cm.model.dto.response.GetBibilioResponseDto;
-import amaroke.projet_cm.model.dto.service.BiblioModel;
+import amaroke.projet_cm.model.entity.BiblioEntity;
+import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.service.BiblioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -39,12 +41,13 @@ public class BiblioController {
 
     @PostMapping("")
     public void addBiblio(@RequestBody PostBiblioDto biblioDto) {
-        biblioService.addBiblio(new BiblioModel(biblioDto.getId(), biblioDto.getNom(), null));
+        biblioService
+                .addBiblio(new BiblioEntity(biblioDto.getId(), biblioDto.getNom(), new ArrayList<LivreEntity>()));
     }
 
     @PostMapping("/{id}/livres")
     public void addLivreToBiblio(@PathVariable("id") Integer biblioId,
-            @RequestBody @Valid PostAddLivreToBiblioRequestDto postAddLivreToBiblioRequestDto) {
+            @RequestBody @Valid PostAddLivreToBiblioDto postAddLivreToBiblioRequestDto) {
         biblioService.addLivreToBiblio(biblioId, postAddLivreToBiblioRequestDto.getId());
     }
 

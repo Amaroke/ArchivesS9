@@ -15,8 +15,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import amaroke.projet_cm.model.dto.request.PostLivreDto;
+import amaroke.projet_cm.model.dto.request.PutUpdateLivreDto;
 import amaroke.projet_cm.model.dto.response.GetLivreResponseDto;
-import amaroke.projet_cm.model.dto.service.LivreModel;
+import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.service.LivreService;
 
 import java.util.List;
@@ -41,12 +42,13 @@ public class LivreController {
 
     @PostMapping("")
     public void addLivre(@RequestBody @Valid PostLivreDto livreDto) {
-        livreService.addLivre(new LivreModel(livreDto.getId(), livreDto.getTitre()));
+        livreService.addLivre(new LivreEntity(livreDto.getId(), livreDto.getTitre(), null));
     }
 
     @PutMapping("/{id}")
-    public void updateLivre(@PathVariable("id") @Min(0) Integer livreId, @RequestBody @Valid PostLivreDto livreDto) {
-        livreService.updateLivre(new LivreModel(livreDto.getId(), livreDto.getTitre()), livreId);
+    public void updateLivre(@PathVariable("id") @Min(0) Integer livreId,
+            @RequestBody @Valid PutUpdateLivreDto livreDto) {
+        livreService.updateLivre(livreId, livreDto.getTitre());
     }
 
     @DeleteMapping("/{id}")

@@ -1,24 +1,22 @@
-package amaroke.projet_cm.model.dto.service;
-
-import java.util.ArrayList;
+package amaroke.projet_cm.model.dto.request;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Validated
-public class BiblioModel {
+public class PostAddLivreToBiblioDto {
 
     @JsonProperty("id")
+    @Min(value = 0, message = "Id less than zero")
     private Integer id;
-    @JsonProperty("nom")
-    private String nom;
-    @JsonProperty("livres")
-    private ArrayList<LivreModel> livres;
 
 }

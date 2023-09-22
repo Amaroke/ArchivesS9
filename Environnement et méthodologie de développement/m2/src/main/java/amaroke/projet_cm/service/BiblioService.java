@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import amaroke.projet_cm.exception.BibblioAlreadyExists;
+import amaroke.projet_cm.exception.BiblioAlreadyExists;
 import amaroke.projet_cm.exception.BiblioNotFoundException;
 import amaroke.projet_cm.exception.NullListException;
-import amaroke.projet_cm.model.dto.service.BiblioModel;
+import amaroke.projet_cm.model.entity.BiblioEntity;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,26 +17,26 @@ public class BiblioService {
 
     private final LivreService livreService;
 
-    private final ArrayList<BiblioModel> biblios = new ArrayList<>(List.of(
-            new BiblioModel(1, "Biblio 1", new ArrayList<>())));
+    private final ArrayList<BiblioEntity> biblios = new ArrayList<>(List.of(
+            new BiblioEntity(1, "Biblio 1", new ArrayList<>())));
 
-    public List<BiblioModel> getBiblios() {
+    public List<BiblioEntity> getBiblios() {
         if (biblios == null) {
             throw new NullListException("No biblios found");
         }
         return biblios;
     }
 
-    public BiblioModel getBiblio(Integer id) {
+    public BiblioEntity getBiblio(Integer id) {
         return biblios.stream()
                 .filter(biblioDto -> biblioDto.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + id + " doesn't exist"));
     }
 
-    public void addBiblio(BiblioModel biblioDto) {
+    public void addBiblio(BiblioEntity biblioDto) {
         if (biblios.stream().anyMatch(livre -> livre.getId().equals(biblioDto.getId()))) {
-            throw new BibblioAlreadyExists("Biblio with id " + biblioDto.getId() + " already exists");
+            throw new BiblioAlreadyExists("Biblio with id " + biblioDto.getId() + " already exists");
         }
         biblios.add(biblioDto);
     }
@@ -49,7 +49,7 @@ public class BiblioService {
         if (biblios == null) {
             throw new NullListException("No biblios found");
         } else {
-            BiblioModel biblio = biblios.stream()
+            BiblioEntity biblio = biblios.stream()
                     .filter(biblioDto -> biblioDto.getId().equals(id))
                     .findFirst()
                     .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + id + " doesn't exist"));
