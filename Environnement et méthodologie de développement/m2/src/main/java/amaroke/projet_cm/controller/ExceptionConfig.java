@@ -1,9 +1,11 @@
 package amaroke.projet_cm.controller;
 
-import amaroke.projet_cm.dto.ErrorMessageDto;
-import amaroke.projet_cm.exceptions.LivreAlreadyExists;
-import amaroke.projet_cm.exceptions.LivreNotFoundException;
-import amaroke.projet_cm.exceptions.NullListException;
+import amaroke.projet_cm.exception.BibblioAlreadyExists;
+import amaroke.projet_cm.exception.BiblioNotFoundException;
+import amaroke.projet_cm.exception.LivreAlreadyExists;
+import amaroke.projet_cm.exception.LivreNotFoundException;
+import amaroke.projet_cm.exception.NullListException;
+import amaroke.projet_cm.model.dto.ErrorMessageDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,6 +33,14 @@ public class ExceptionConfig {
         return new ErrorMessageDto("NOT_FOUND", e.getMessage());
     }
 
+    @ExceptionHandler(value = BiblioNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorMessageDto internalServerError(BiblioNotFoundException e) {
+        log.error(e.getMessage());
+        return new ErrorMessageDto("NOT_FOUND", e.getMessage());
+    }
+
     @ExceptionHandler(value = NullListException.class)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -43,6 +53,14 @@ public class ExceptionConfig {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessageDto internalServerError(LivreAlreadyExists e) {
+        log.error(e.getMessage());
+        return new ErrorMessageDto("BAD_REQUEST", e.getMessage());
+    }
+
+    @ExceptionHandler(value = BibblioAlreadyExists.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorMessageDto internalServerError(BibblioAlreadyExists e) {
         log.error(e.getMessage());
         return new ErrorMessageDto("BAD_REQUEST", e.getMessage());
     }

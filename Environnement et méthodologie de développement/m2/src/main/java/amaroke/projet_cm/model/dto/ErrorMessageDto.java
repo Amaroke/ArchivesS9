@@ -1,4 +1,4 @@
-package amaroke.projet_cm.dto;
+package amaroke.projet_cm.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

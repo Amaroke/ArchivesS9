@@ -1,6 +1,4 @@
-package amaroke.projet_cm.dto;
-
-import org.springframework.validation.annotation.Validated;
+package amaroke.projet_cm.model.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,15 +9,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@Validated
-public class LivreDto {
+public class PostLivreDto {
 
     @JsonProperty("id")
     @Min(value = 0, message = "Id less than zero")
     private Integer id;
 
     @JsonProperty("titre")
-    @Size(max = 10, message = "Title too long (more than 10 characters)")
+    @Size(max = 100, message = "Title too long (more than 100 characters)")
     private String titre;
 
 }

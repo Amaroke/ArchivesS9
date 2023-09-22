@@ -1,4 +1,4 @@
-package amaroke.projet_cm.exceptions;
+package amaroke.projet_cm.exception;
 
 public class NullListException extends RuntimeException {
 
