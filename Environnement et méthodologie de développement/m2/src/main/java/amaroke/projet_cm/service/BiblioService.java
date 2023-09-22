@@ -8,6 +8,7 @@ import amaroke.projet_cm.exception.BiblioAlreadyExists;
 import amaroke.projet_cm.exception.BiblioNotFoundException;
 import amaroke.projet_cm.exception.NullListException;
 import amaroke.projet_cm.model.entity.BiblioEntity;
+import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.repository.BiblioRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -22,9 +23,9 @@ public class BiblioService {
         return biblioRespository.findAll();
     }
 
-    public BiblioEntity getBiblio(Integer id) {
-        return biblioRespository.findById(id)
-                .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + id + " doesn't exist"));
+    public BiblioEntity getBiblio(Integer biblioId) {
+        return biblioRespository.findById(biblioId)
+                .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
     }
 
     public void addBiblio(BiblioEntity biblioDto) {
@@ -42,8 +43,13 @@ public class BiblioService {
         biblioRespository.save(biblio);
     }
 
-    public void deleteBiblio(int id) {
-        biblioRespository.deleteById(id);
+    public void deleteBiblio(int biblioId) {
+        BiblioEntity biblioToDelete = this.getBiblio(biblioId);
+        List<LivreEntity> livres = biblioToDelete.getLivres();
+        for (LivreEntity livre : livres) {
+            livre.getBibliotheques().remove(biblioToDelete);
+        }
+        biblioRespository.deleteById(biblioId);
     }
 
     public void deleteLivreFromBiblio(Integer biblioId, Integer livreId) {
@@ -51,6 +57,11 @@ public class BiblioService {
                 .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
         if (biblio.getLivres().isEmpty()) {
             throw new NullListException("Biblio with id " + biblioId + " doesn't have any livres");
+        }
+        BiblioEntity biblioToDelete = this.getBiblio(biblioId);
+        List<LivreEntity> livres = biblioToDelete.getLivres();
+        for (LivreEntity livre : livres) {
+            livre.getBibliotheques().remove(biblioToDelete);
         }
         biblio.getLivres().remove(livreService.getLivre(livreId));
         biblioRespository.save(biblio);

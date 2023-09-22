@@ -40,6 +40,8 @@ public class LivreService {
     }
 
     public void deleteLivre(int id) {
+        LivreEntity livreToDelete = this.getLivre(id);
+        livreToDelete.getBibliotheques().forEach(biblio -> biblio.getLivres().remove(livreToDelete));
         livreRespository.deleteById(id);
     }
 
