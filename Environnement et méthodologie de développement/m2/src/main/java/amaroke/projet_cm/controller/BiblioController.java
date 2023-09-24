@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import amaroke.projet_cm.model.dto.request.PostAddLivreToBiblioDto;
@@ -30,19 +31,19 @@ public class BiblioController {
     private final BiblioService biblioService;
 
     @GetMapping("")
-    public List<GetBibilioResponseDto> getBiblios() {
+    public @ResponseBody List<GetBibilioResponseDto> getBiblios() {
         return biblioService.getBiblios().stream().map(GetBibilioResponseDto::new).toList();
     }
 
     @GetMapping("/{id}")
-    public GetBibilioResponseDto getBiblio(@PathVariable("id") Integer biblioId) {
+    public @ResponseBody GetBibilioResponseDto getBiblio(@PathVariable("id") Integer biblioId) {
         return new GetBibilioResponseDto(biblioService.getBiblio(biblioId));
     }
 
     @PostMapping("")
     public void addBiblio(@RequestBody PostBiblioDto biblioDto) {
         biblioService
-                .addBiblio(new BiblioEntity(biblioDto.getId(), biblioDto.getNom(), new ArrayList<LivreEntity>()));
+                .addBiblio(new BiblioEntity(null, biblioDto.getNom(), new ArrayList<LivreEntity>()));
     }
 
     @PostMapping("/{id}/livres")

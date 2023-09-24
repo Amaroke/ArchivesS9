@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import amaroke.projet_cm.exception.LivreAlreadyExists;
 import amaroke.projet_cm.exception.LivreNotFoundException;
 import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.repository.LivreRepository;
@@ -25,11 +24,8 @@ public class LivreService {
                 .orElseThrow(() -> new LivreNotFoundException("Livre with id " + id + " doesn't exist"));
     }
 
-    public void addLivre(LivreEntity livreDto) {
-        if (livreRespository.existsById(livreDto.getId())) {
-            throw new LivreAlreadyExists("Livre with id " + livreDto.getId() + " already exists");
-        }
-        livreRespository.save(livreDto);
+    public void addLivre(LivreEntity livreEntity) {
+        livreRespository.save(livreEntity);
     }
 
     public void updateLivre(Integer livreId, String titre) {

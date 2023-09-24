@@ -2,6 +2,7 @@ package amaroke.projet_cm.controller;
 
 import amaroke.projet_cm.exception.BiblioAlreadyExists;
 import amaroke.projet_cm.exception.BiblioNotFoundException;
+import amaroke.projet_cm.exception.CommentaireNotFound;
 import amaroke.projet_cm.exception.LivreAlreadyExists;
 import amaroke.projet_cm.exception.LivreNotFoundException;
 import amaroke.projet_cm.exception.NullListException;
@@ -37,6 +38,14 @@ public class ExceptionConfig {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorMessageDto internalServerError(BiblioNotFoundException e) {
+        log.error(e.getMessage());
+        return new ErrorMessageDto("NOT_FOUND", e.getMessage());
+    }
+
+    @ExceptionHandler(value = CommentaireNotFound.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorMessageDto internalServerError(CommentaireNotFound e) {
         log.error(e.getMessage());
         return new ErrorMessageDto("NOT_FOUND", e.getMessage());
     }
