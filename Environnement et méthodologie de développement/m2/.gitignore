@@ -31,6 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-.db.lock.db
-.db.mv.db
+db.lock.db
+db.mv.db
 

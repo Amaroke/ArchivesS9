@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import amaroke.projet_cm.exception.LivreNotFoundException;
+import amaroke.projet_cm.model.dto.request.PostCommentaireDto;
+import amaroke.projet_cm.model.entity.CommentaireEntity;
 import amaroke.projet_cm.model.entity.LivreEntity;
+import amaroke.projet_cm.repository.CommentaireRepository;
 import amaroke.projet_cm.repository.LivreRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class LivreService {
 
     private final LivreRepository livreRespository;
+    private final CommentaireRepository commentaireRepository;
 
     public List<LivreEntity> getLivres() {
         return livreRespository.findAll();
@@ -39,6 +43,11 @@ public class LivreService {
         LivreEntity livreToDelete = this.getLivre(id);
         livreToDelete.getBibliotheques().forEach(biblio -> biblio.getLivres().remove(livreToDelete));
         livreRespository.deleteById(id);
+    }
+
+    public void addCommentaire(Integer livreId, PostCommentaireDto commentaire) {
+        commentaireRepository
+                .save(new CommentaireEntity(null, commentaire.getCommentaire(), this.getLivre(livreId)));
     }
 
 }

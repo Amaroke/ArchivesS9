@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import amaroke.projet_cm.model.dto.request.PostCommentaireDto;
 import amaroke.projet_cm.model.dto.request.PostLivreDto;
 import amaroke.projet_cm.model.dto.response.GetLivreResponseDto;
 import amaroke.projet_cm.model.entity.BiblioEntity;
@@ -56,4 +57,11 @@ public class LivreController {
     public void deleteLivre(@PathVariable("id") @Min(0) Integer livreId) {
         livreService.deleteLivre(livreId);
     }
+
+    @PostMapping("/{livreId}/commentaires")
+    public void addCommentaire(@PathVariable Integer livreId,
+            @RequestBody @Valid PostCommentaireDto postCommentaireDto) {
+        livreService.addCommentaire(livreId, postCommentaireDto);
+    }
+
 }

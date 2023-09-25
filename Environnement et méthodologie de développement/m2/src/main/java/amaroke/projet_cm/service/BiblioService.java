@@ -50,9 +50,7 @@ public class BiblioService {
     public void deleteBiblio(int biblioId) {
         BiblioEntity biblioToDelete = this.getBiblio(biblioId);
         List<LivreEntity> livres = biblioToDelete.getLivres();
-        for (LivreEntity livre : livres) {
-            livre.getBibliotheques().remove(biblioToDelete);
-        }
+        livres.forEach(livreEntity -> livreEntity.getBibliotheques().remove(biblioToDelete));
         biblioRespository.deleteById(biblioId);
     }
 
