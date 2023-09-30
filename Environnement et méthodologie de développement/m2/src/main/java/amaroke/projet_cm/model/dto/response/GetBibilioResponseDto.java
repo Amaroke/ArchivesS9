@@ -1,6 +1,7 @@
 package amaroke.projet_cm.model.dto.response;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,13 +13,14 @@ import lombok.Data;
 @AllArgsConstructor
 public class GetBibilioResponseDto {
 
-    public GetBibilioResponseDto(BiblioEntity biblioModel) {
-        this.id = biblioModel.getId();
-        this.nom = biblioModel.getNom();
-        this.livres = new ArrayList<GetLivreResponseDto>();
-        biblioModel.getLivres().forEach(livre -> {
-            this.livres.add(new GetLivreResponseDto(livre));
-        });
+    public GetBibilioResponseDto(BiblioEntity biblioEntity) {
+        this.id = biblioEntity.getId();
+        this.nom = biblioEntity.getNom();
+        this.livres = biblioEntity.getBiblioJoinLivreEntities()
+                .stream()
+                .map(biblioJoinLivreEntity -> biblioJoinLivreEntity.getLivre().getId())
+                .collect(Collectors.toList());
+
     }
 
     @JsonProperty("id")
@@ -28,6 +30,6 @@ public class GetBibilioResponseDto {
     private String nom;
 
     @JsonProperty("livres")
-    private ArrayList<GetLivreResponseDto> livres;
+    private List<Integer> livres;
 
 }

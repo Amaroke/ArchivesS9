@@ -13,7 +13,7 @@ public class GetCommentaireResponseDto {
     public GetCommentaireResponseDto(CommentaireEntity commentaireEntity) {
         this.id = commentaireEntity.getId();
         this.commentaire = commentaireEntity.getCommentaire();
-        this.livre = new GetLivreResponseDto(commentaireEntity.getLivre());
+        this.livre = commentaireEntity.getLivre().getId();
     }
 
     @JsonProperty("id")
@@ -23,6 +23,6 @@ public class GetCommentaireResponseDto {
     private String commentaire;
 
     @JsonProperty("livre")
-    GetLivreResponseDto livre;
+    Integer livre;
 
 }

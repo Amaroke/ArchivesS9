@@ -1,16 +1,17 @@
 package amaroke.projet_cm.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import amaroke.projet_cm.exception.BiblioAlreadyExists;
 import amaroke.projet_cm.exception.BiblioNotFoundException;
-import amaroke.projet_cm.exception.NullListException;
 import amaroke.projet_cm.model.entity.BiblioEntity;
-import amaroke.projet_cm.model.entity.LivreEntity;
+import amaroke.projet_cm.model.entity.BiblioJoinLivreEntity;
+import amaroke.projet_cm.model.entity.key.BiblioJoinLivreId;
+import amaroke.projet_cm.repository.BiblioJoinLivreRepository;
 import amaroke.projet_cm.repository.BiblioRepository;
-import amaroke.projet_cm.repository.LivreRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,52 +19,47 @@ import lombok.RequiredArgsConstructor;
 public class BiblioService {
 
     private final BiblioRepository biblioRespository;
-    private final LivreRepository livreRepository;
     private final LivreService livreService;
+    private final BiblioJoinLivreRepository biblioJoinLivreRepository;
 
     public List<BiblioEntity> getBiblios() {
-        return biblioRespository.findAll();
+        return this.biblioRespository.findAll();
     }
 
     public BiblioEntity getBiblio(Integer biblioId) {
-        return biblioRespository.findById(biblioId)
+        return this.biblioRespository
+                .findById(biblioId)
                 .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
     }
 
-    public void addBiblio(BiblioEntity biblioEntity) {
-        if (biblioRespository.existsById(biblioEntity.getId())) {
-            throw new BiblioAlreadyExists("Biblio with id " + biblioEntity.getId() + " already exists");
-        }
-        biblioRespository.save(biblioEntity);
-
+    public void addBiblio(String biblioNom) {
+        this.biblioRespository.save(BiblioEntity.builder().nom(biblioNom).build());
     }
 
     public void addLivreToBiblio(Integer biblioId, Integer livreId) {
-        BiblioEntity biblio = biblioRespository.findById(biblioId)
-                .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
-        biblio.getLivres().add(livreService.getLivre(livreId));
-        livreService.getLivre(livreId).getBibliotheques().add(biblio);
-        livreRepository.save(livreService.getLivre(livreId));
-        biblioRespository.save(biblio);
+        var biblio = this.getBiblio(biblioId);
+        var livre = this.livreService.getLivre(livreId);
+        var jn = BiblioJoinLivreEntity.builder().biblio(biblio).livre(livre).addDate(LocalDateTime.now()).build();
+
+        this.biblioJoinLivreRepository.save(jn);
     }
 
+    @Transactional
     public void deleteBiblio(int biblioId) {
-        BiblioEntity biblioToDelete = this.getBiblio(biblioId);
-        List<LivreEntity> livres = biblioToDelete.getLivres();
-        livres.forEach(livreEntity -> livreEntity.getBibliotheques().remove(biblioToDelete));
-        biblioRespository.deleteById(biblioId);
+        var biblio = this.getBiblio(biblioId);
+        this.biblioJoinLivreRepository.deleteAllByBiblioIs(biblio);
+        this.biblioRespository.delete(biblio);
     }
 
     public void deleteLivreFromBiblio(Integer biblioId, Integer livreId) {
-        BiblioEntity biblio = biblioRespository.findById(biblioId)
+        var biblio = this.getBiblio(biblioId);
+        var livre = this.livreService.getLivre(livreId);
+
+        var jointure = this.biblioJoinLivreRepository
+                .findById(new BiblioJoinLivreId(biblio, livre))
                 .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
-        if (biblio.getLivres().isEmpty()) {
-            throw new NullListException("Biblio with id " + biblioId + " doesn't have any livres");
-        }
-        LivreEntity livre = livreService.getLivre(livreId);
-        biblio.getLivres().remove(livre);
-        livre.getBibliotheques().remove(biblio);
-        biblioRespository.save(biblio);
+
+        this.biblioJoinLivreRepository.delete(jointure);
     }
 
 }

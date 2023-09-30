@@ -1,6 +1,5 @@
 package amaroke.projet_cm.model.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,12 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "livres")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class LivreEntity {
@@ -31,8 +32,8 @@ public class LivreEntity {
     @JsonProperty("titre")
     private String titre;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "livres")
     @JsonProperty("bibliotheques")
-    List<BiblioEntity> bibliotheques = new ArrayList<>();
+    List<BiblioJoinLivreEntity> biblioJoinLivreEntities;
 
 }

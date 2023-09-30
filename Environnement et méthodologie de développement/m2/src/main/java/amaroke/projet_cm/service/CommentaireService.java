@@ -16,23 +16,23 @@ public class CommentaireService {
     private final CommentaireRepository commentaireRepository;
 
     public List<CommentaireEntity> getCommentaires() {
-        return commentaireRepository.findAll();
+        return this.commentaireRepository.findAll();
     }
 
     public CommentaireEntity getCommentaire(Integer commentaireId) {
-        return commentaireRepository.findById(commentaireId)
+        return this.commentaireRepository.findById(commentaireId)
                 .orElseThrow(() -> new CommentaireNotFound("Commentaire with id " + commentaireId + " doesn't exist"));
     }
 
     public void updateCommentaire(Integer commentaireId, String commentaire) {
-        CommentaireEntity commentaireEntity = commentaireRepository.findById(commentaireId)
+        CommentaireEntity commentaireEntity = this.commentaireRepository.findById(commentaireId)
                 .orElseThrow(() -> new CommentaireNotFound("Commentaire with id " + commentaireId + " doesn't exist"));
         commentaireEntity.setCommentaire(commentaire);
-        commentaireRepository.save(commentaireEntity);
+        this.commentaireRepository.save(commentaireEntity);
     }
 
     public void deleteCommentaire(Integer commentaireId) {
-        commentaireRepository.deleteById(commentaireId);
+        this.commentaireRepository.deleteById(commentaireId);
     }
 
 }

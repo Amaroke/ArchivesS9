@@ -1,8 +1,8 @@
 package amaroke.projet_cm.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import amaroke.projet_cm.model.dto.request.PostAddLivreToBiblioDto;
 import amaroke.projet_cm.model.dto.request.PostBiblioDto;
 import amaroke.projet_cm.model.dto.response.GetBibilioResponseDto;
-import amaroke.projet_cm.model.entity.BiblioEntity;
-import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.service.BiblioService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,34 +32,37 @@ public class BiblioController {
 
     @GetMapping("")
     public @ResponseBody List<GetBibilioResponseDto> getBiblios() {
-        return biblioService.getBiblios().stream().map(GetBibilioResponseDto::new).toList();
+        return this.biblioService.getBiblios().stream().map(GetBibilioResponseDto::new).toList();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody GetBibilioResponseDto getBiblio(@PathVariable("id") Integer biblioId) {
-        return new GetBibilioResponseDto(biblioService.getBiblio(biblioId));
+    public @ResponseBody GetBibilioResponseDto getBiblioById(@PathVariable("id") @Min(0) Integer biblioId) {
+        return new GetBibilioResponseDto(this.biblioService.getBiblio(biblioId));
     }
 
     @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
     public void addBiblio(@RequestBody PostBiblioDto biblioDto) {
-        biblioService
-                .addBiblio(new BiblioEntity(null, biblioDto.getNom(), new ArrayList<LivreEntity>()));
+        this.biblioService
+                .addBiblio(biblioDto.getNom());
     }
 
     @PostMapping("/{id}/livres")
-    public void addLivreToBiblio(@PathVariable("id") Integer biblioId,
-            @RequestBody @Valid PostAddLivreToBiblioDto postAddLivreToBiblioRequestDto) {
-        biblioService.addLivreToBiblio(biblioId, postAddLivreToBiblioRequestDto.getId());
+    @ResponseStatus(HttpStatus.OK)
+    public void addLivreToBiblio(@PathVariable("id") @Min(0) Integer biblioId,
+            @RequestBody @Valid PostAddLivreToBiblioDto biblioDto) {
+        this.biblioService.addLivreToBiblio(biblioId, biblioDto.getId());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBiblio(@PathVariable("id") Integer biblioId) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBiblio(@PathVariable("id") @Min(0) Integer biblioId) {
         biblioService.deleteBiblio(biblioId);
     }
 
     @DeleteMapping("/{id}/livres/{livreId}")
-    public void deleteLivreFromBiblio(@PathVariable("id") Integer biblioId,
-            @PathVariable("livreId") Integer livreId) {
-        biblioService.deleteLivreFromBiblio(biblioId, livreId);
+    public void deleteLivreFromBiblio(@PathVariable("id") @Min(0) Integer biblioId,
+            @PathVariable("livreId") @Min(0) Integer livreId) {
+        this.biblioService.deleteLivreFromBiblio(biblioId, livreId);
     }
 }

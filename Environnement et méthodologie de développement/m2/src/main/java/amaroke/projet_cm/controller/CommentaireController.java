@@ -2,6 +2,7 @@ package amaroke.projet_cm.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import amaroke.projet_cm.model.dto.request.PostCommentaireDto;
@@ -29,23 +31,25 @@ public class CommentaireController {
 
     @GetMapping("")
     public @ResponseBody List<GetCommentaireResponseDto> getCommentaires() {
-        return commentaireService.getCommentaires().stream().map(GetCommentaireResponseDto::new).toList();
+        return this.commentaireService.getCommentaires().stream().map(GetCommentaireResponseDto::new).toList();
     }
 
     @GetMapping("/{id}")
-    public @ResponseBody GetCommentaireResponseDto getCommentaire(@PathVariable("id") Integer commentaireId) {
-        return new GetCommentaireResponseDto(commentaireService.getCommentaire(commentaireId));
+    public @ResponseBody GetCommentaireResponseDto getCommentaire(@PathVariable("id") @Min(0) Integer commentaireId) {
+        return new GetCommentaireResponseDto(this.commentaireService.getCommentaire(commentaireId));
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateCommentaire(@PathVariable("id") @Min(0) Integer commentaireId,
             @RequestBody @Valid PostCommentaireDto commentaireDto) {
-        commentaireService.updateCommentaire(commentaireId, commentaireDto.getCommentaire());
+        this.commentaireService.updateCommentaire(commentaireId, commentaireDto.getCommentaire());
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteCommentaire(@PathVariable("id") @Min(0) Integer commentaireId) {
-        commentaireService.deleteCommentaire(commentaireId);
+        this.commentaireService.deleteCommentaire(commentaireId);
     }
 
 }

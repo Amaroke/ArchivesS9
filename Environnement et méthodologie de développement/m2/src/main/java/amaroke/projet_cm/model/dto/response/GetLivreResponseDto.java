@@ -2,10 +2,10 @@ package amaroke.projet_cm.model.dto.response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import amaroke.projet_cm.model.entity.BiblioEntity;
 import amaroke.projet_cm.model.entity.LivreEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,10 @@ public class GetLivreResponseDto {
     public GetLivreResponseDto(LivreEntity livreDto) {
         this.id = livreDto.getId();
         this.titre = livreDto.getTitre();
-        this.bibliotheques = livreDto.getBibliotheques().stream().map(BiblioEntity::getId).toList();
+        this.bibliotheques = livreDto.getBiblioJoinLivreEntities()
+                .stream()
+                .map(biblioJoinLivreEntity -> biblioJoinLivreEntity.getBiblio().getId())
+                .collect(Collectors.toList());
     }
 
     @JsonProperty("id")

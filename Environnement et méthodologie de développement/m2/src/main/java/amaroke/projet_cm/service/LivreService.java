@@ -4,49 +4,57 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import amaroke.projet_cm.exception.InvalidValueException;
 import amaroke.projet_cm.exception.LivreNotFoundException;
 import amaroke.projet_cm.model.dto.request.PostCommentaireDto;
 import amaroke.projet_cm.model.entity.CommentaireEntity;
 import amaroke.projet_cm.model.entity.LivreEntity;
+import amaroke.projet_cm.repository.BiblioJoinLivreRepository;
 import amaroke.projet_cm.repository.CommentaireRepository;
 import amaroke.projet_cm.repository.LivreRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class LivreService {
 
-    private final LivreRepository livreRespository;
+    private final LivreRepository livreRepository;
     private final CommentaireRepository commentaireRepository;
+    private final BiblioJoinLivreRepository biblioJoinLivreRepository;
 
     public List<LivreEntity> getLivres() {
-        return livreRespository.findAll();
+        return this.livreRepository.findAll();
     }
 
     public LivreEntity getLivre(Integer id) {
-        return livreRespository.findById(id)
+        return this.livreRepository.findById(id)
                 .orElseThrow(() -> new LivreNotFoundException("Livre with id " + id + " doesn't exist"));
     }
 
-    public void addLivre(LivreEntity livreEntity) {
-        livreRespository.save(livreEntity);
+    public void addLivre(String livreName) {
+        this.livreRepository.save(LivreEntity.builder().titre(livreName).build());
     }
 
     public void updateLivre(Integer livreId, String titre) {
-        LivreEntity livre = livreRespository.findById(livreId)
-                .orElseThrow(() -> new LivreNotFoundException("Livre with id " + livreId + " doesn't exist"));
-        livre.setTitre(titre);
-        livreRespository.save(livre);
+        if (titre == null) {
+            throw new InvalidValueException("le nouveau nom ne doit pas être null");
+        }
+        final LivreEntity livreToUpdate = this.livreRepository.findById(livreId)
+                .orElseThrow(() -> new LivreNotFoundException("le livre d'id " + livreId + " n'existe pas"));
+        livreToUpdate.setTitre(titre);
+        livreRepository.save(livreToUpdate);
     }
 
+    @Transactional
     public void deleteLivre(int id) {
-        LivreEntity livreToDelete = this.getLivre(id);
-        livreToDelete.getBibliotheques().forEach(biblio -> biblio.getLivres().remove(livreToDelete));
-        livreRespository.deleteById(id);
+        var livre = this.getLivre(id);
+        this.biblioJoinLivreRepository.deleteAllByLivreIs(livre);
+        this.livreRepository.delete(livre);
     }
 
     public void addCommentaire(Integer livreId, PostCommentaireDto commentaire) {
-        commentaireRepository
+        this.commentaireRepository
                 .save(new CommentaireEntity(null, commentaire.getCommentaire(), this.getLivre(livreId)));
     }
 
