@@ -69,11 +69,13 @@ public class LivreController {
 
     @GetMapping("/{livreId}/cover")
     public String getCover(@PathVariable Integer livreId) {
+        this.getLivreById(livreId);
         return this.livreService.getCover(livreId);
     }
 
     @PutMapping("/{livreId}/cover")
     public String addCover(@PathVariable Integer livreId) {
+        this.getLivreById(livreId);
         return this.livreService.addCover(livreId);
     }
 

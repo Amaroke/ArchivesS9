@@ -10,7 +10,7 @@ import io.minio.http.Method;
 @Service
 public class S3Service {
 
-    private MinioClient minioClient;
+    private final MinioClient minioClient;
 
     public S3Service(Environment environment) {
 
@@ -33,10 +33,8 @@ public class S3Service {
                     .build());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return "error";
     }
 
     public String addCover(Integer livreId) {
@@ -51,11 +49,8 @@ public class S3Service {
                     .build());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return "error";
-
     }
 
 }
