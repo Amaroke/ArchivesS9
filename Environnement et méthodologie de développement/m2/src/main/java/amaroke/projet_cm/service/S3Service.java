@@ -53,4 +53,36 @@ public class S3Service {
         }
     }
 
+    public String getCoverBiblio(Integer biblioId) {
+        try {
+            String bucketName = "biblio";
+            String objectName = "amaroke" + biblioId.toString();
+
+            return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                    .bucket(bucketName)
+                    .object(objectName)
+                    .method(Method.GET)
+                    .build());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String addCoverBiblio(Integer biblioId) {
+        try {
+            String bucketName = "biblio";
+            String objectName = "amaroke" + biblioId.toString();
+
+            return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                    .bucket(bucketName)
+                    .object(objectName)
+                    .method(Method.PUT)
+                    .build());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

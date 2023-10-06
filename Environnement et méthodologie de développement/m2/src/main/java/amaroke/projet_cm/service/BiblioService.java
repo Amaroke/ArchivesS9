@@ -21,6 +21,7 @@ public class BiblioService {
     private final BiblioRepository biblioRespository;
     private final LivreService livreService;
     private final BiblioJoinLivreRepository biblioJoinLivreRepository;
+    private final S3Service s3Service;
 
     public List<BiblioEntity> getBiblios() {
         return this.biblioRespository.findAll();
@@ -60,6 +61,14 @@ public class BiblioService {
                 .orElseThrow(() -> new BiblioNotFoundException("Biblio with id " + biblioId + " doesn't exist"));
 
         this.biblioJoinLivreRepository.delete(jointure);
+    }
+
+    public String getCover(Integer biblioId) {
+        return this.s3Service.getCoverBiblio(biblioId);
+    }
+
+    public String addCover(Integer biblioId) {
+        return this.s3Service.addCoverBiblio(biblioId);
     }
 
 }

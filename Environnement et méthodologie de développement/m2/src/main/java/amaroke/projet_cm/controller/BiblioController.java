@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,5 +65,17 @@ public class BiblioController {
     public void deleteLivreFromBiblio(@PathVariable("id") @Min(0) Integer biblioId,
             @PathVariable("livreId") @Min(0) Integer livreId) {
         this.biblioService.deleteLivreFromBiblio(biblioId, livreId);
+    }
+
+    @GetMapping("/{biblioId}/cover")
+    public String getCover(@PathVariable Integer biblioId) {
+        this.getBiblioById(biblioId);
+        return this.biblioService.getCover(biblioId);
+    }
+
+    @PutMapping("/{biblioId}/cover")
+    public String addCover(@PathVariable Integer biblioId) {
+        this.getBiblioById(biblioId);
+        return this.biblioService.addCover(biblioId);
     }
 }
