@@ -11,6 +11,8 @@ import io.minio.http.Method;
 public class S3Service {
 
     private final MinioClient minioClient;
+    private final String livreBucket;
+    private final String biblioBucket;
 
     public S3Service(Environment environment) {
 
@@ -18,16 +20,17 @@ public class S3Service {
                 .endpoint(environment.getProperty("s3.endpoint"))
                 .credentials(environment.getProperty("s3.accesskey"), environment.getProperty("s3.secretkey"))
                 .build();
+        livreBucket = environment.getProperty("s3.livreBucket");
+        biblioBucket = environment.getProperty("s3.biblioBucket");
 
     }
 
     public String getCover(Integer livreId) {
         try {
-            String bucketName = "coursm2";
             String objectName = "amaroke" + livreId.toString();
 
             return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
+                    .bucket(this.livreBucket)
                     .object(objectName)
                     .method(Method.GET)
                     .build());
@@ -39,11 +42,10 @@ public class S3Service {
 
     public String addCover(Integer livreId) {
         try {
-            String bucketName = "coursm2";
             String objectName = "amaroke" + livreId.toString();
 
             return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
+                    .bucket(this.livreBucket)
                     .object(objectName)
                     .method(Method.PUT)
                     .build());
@@ -55,11 +57,10 @@ public class S3Service {
 
     public String getCoverBiblio(Integer biblioId) {
         try {
-            String bucketName = "biblio";
             String objectName = "amaroke" + biblioId.toString();
 
             return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
+                    .bucket(this.biblioBucket)
                     .object(objectName)
                     .method(Method.GET)
                     .build());
@@ -71,11 +72,10 @@ public class S3Service {
 
     public String addCoverBiblio(Integer biblioId) {
         try {
-            String bucketName = "biblio";
             String objectName = "amaroke" + biblioId.toString();
 
             return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
+                    .bucket(this.biblioBucket)
                     .object(objectName)
                     .method(Method.PUT)
                     .build());
