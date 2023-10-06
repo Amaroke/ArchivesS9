@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import amaroke.projet_cm.exception.InvalidValueException;
 import amaroke.projet_cm.exception.LivreNotFoundException;
-import amaroke.projet_cm.model.dto.request.PostCommentaireDto;
 import amaroke.projet_cm.model.entity.CommentaireEntity;
 import amaroke.projet_cm.model.entity.LivreEntity;
 import amaroke.projet_cm.repository.BiblioJoinLivreRepository;
@@ -53,9 +52,9 @@ public class LivreService {
         this.livreRepository.delete(livre);
     }
 
-    public void addCommentaire(Integer livreId, PostCommentaireDto commentaire) {
+    public void addCommentaire(Integer livreId, String commentaire) {
         this.commentaireRepository
-                .save(new CommentaireEntity(null, commentaire.getCommentaire(), this.getLivre(livreId)));
+                .save(new CommentaireEntity(null, commentaire, this.getLivre(livreId)));
     }
 
 }

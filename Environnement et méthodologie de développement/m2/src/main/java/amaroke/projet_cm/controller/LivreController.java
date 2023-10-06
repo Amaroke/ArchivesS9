@@ -64,7 +64,7 @@ public class LivreController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addCommentaire(@PathVariable Integer livreId,
             @RequestBody @Valid PostCommentaireDto postCommentaireDto) {
-        this.livreService.addCommentaire(livreId, postCommentaireDto);
+        this.livreService.addCommentaire(livreId, postCommentaireDto.getCommentaire());
     }
 
 }
