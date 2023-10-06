@@ -3,6 +3,7 @@ package amaroke.projet_cm.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -53,7 +54,7 @@ public class LivreServiceTest {
     void getLivreExisting() {
         var livre = LivreEntity.builder().titre("titre").build();
 
-        when(livreRepository.findById(1)).thenReturn(Optional.of(livre));
+        when(livreRepository.findById(anyInt())).thenReturn(Optional.of(livre));
 
         LivreEntity result = livreService.getLivre(1);
 
@@ -62,7 +63,7 @@ public class LivreServiceTest {
 
     @Test 
     void getLivreNotFound() {
-        when(livreRepository.findById(1)).thenReturn(Optional.empty());
+        when(livreRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         assertThrows(LivreNotFoundException.class, () -> livreService.getLivre(1));
     }

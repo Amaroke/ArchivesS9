@@ -21,6 +21,7 @@ public class LivreService {
     private final LivreRepository livreRepository;
     private final CommentaireRepository commentaireRepository;
     private final BiblioJoinLivreRepository biblioJoinLivreRepository;
+    private final S3Service s3Service;
 
     public List<LivreEntity> getLivres() {
         return this.livreRepository.findAll();
@@ -55,6 +56,14 @@ public class LivreService {
     public void addCommentaire(Integer livreId, String commentaire) {
         this.commentaireRepository
                 .save(new CommentaireEntity(null, commentaire, this.getLivre(livreId)));
+    }
+
+    public String getCover(Integer livreId) {
+        return this.s3Service.getCover(livreId);
+    }
+
+    public String addCover(Integer livreId) {
+        return this.s3Service.addCover(livreId);
     }
 
 }

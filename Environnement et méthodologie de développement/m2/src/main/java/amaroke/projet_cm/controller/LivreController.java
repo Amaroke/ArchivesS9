@@ -67,4 +67,14 @@ public class LivreController {
         this.livreService.addCommentaire(livreId, postCommentaireDto.getCommentaire());
     }
 
+    @GetMapping("/{livreId}/cover")
+    public String getCover(@PathVariable Integer livreId) {
+        return this.livreService.getCover(livreId);
+    }
+
+    @PutMapping("/{livreId}/cover")
+    public String addCover(@PathVariable Integer livreId) {
+        return this.livreService.addCover(livreId);
+    }
+
 }
