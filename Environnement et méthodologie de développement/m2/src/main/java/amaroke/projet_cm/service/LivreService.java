@@ -22,6 +22,7 @@ public class LivreService {
     private final CommentaireRepository commentaireRepository;
     private final BiblioJoinLivreRepository biblioJoinLivreRepository;
     private final S3Service s3Service;
+    private final IndexService indexService;
 
     public List<LivreEntity> getLivres() {
         return this.livreRepository.findAll();
@@ -33,7 +34,8 @@ public class LivreService {
     }
 
     public void addLivre(String livreName) {
-        this.livreRepository.save(LivreEntity.builder().titre(livreName).build());
+        final LivreEntity livre = this.livreRepository.save(LivreEntity.builder().titre(livreName).build());
+        this.indexService.indexLivre(livreName, livre.getId());
     }
 
     public void updateLivre(Integer livreId, String titre) {
