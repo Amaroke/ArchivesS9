@@ -33,4 +33,5 @@ build/
 .vscode/
 db.mv.db
 db.lock.db
+db.trace.db
 index/
