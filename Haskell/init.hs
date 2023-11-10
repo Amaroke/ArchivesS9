@@ -1,0 +1,1 @@
+init' xs = reverse (tail (reverse xs))

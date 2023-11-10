@@ -1,0 +1,1 @@
+average ns = div (sum ns) (length ns)
