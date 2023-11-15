@@ -1,0 +1,1 @@
+replicate' n a = [n | _ <- [1..a]]

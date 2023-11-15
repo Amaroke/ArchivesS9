@@ -1,0 +1,1 @@
+lowers s = sum [1 | x <- xs, x >= 'a' && 'x' <= 'z']
