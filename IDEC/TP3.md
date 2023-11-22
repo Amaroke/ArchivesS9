@@ -96,6 +96,8 @@ Pour des ensembles de données de petite taille, la validation croisée à 10 fo
 
 ### Question 1
 
+cf test.csv
+
 ### Question 2
 
 ### Question 3

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>chan endommage;
+chan retourDepot;
+chan livreC, livreD, livreE;
+clock tempsTrajet, tempsTotal;</declaration>
+	<template>
+		<name x="5" y="5">PlanA</name>
+		<location id="id0" x="-365" y="-59">
+			<name x="-391" y="-93">Depart</name>
+		</location>
+		<location id="id1" x="76" y="-144">
+			<name x="50" y="-178">MaisonD</name>
+		</location>
+		<location id="id2" x="-195" y="-144">
+			<name x="-229" y="-178">MaisonB</name>
+		</location>
+		<location id="id3" x="-195" y="76">
+			<name x="-229" y="93">MaisonA</name>
+		</location>
+		<location id="id4" x="76" y="76">
+			<name x="42" y="93">MaisonC</name>
+		</location>
+		<location id="id5" x="246" y="-34">
+			<name x="238" y="-68">MaisonE</name>
+		</location>
+		<location id="id6" x="493" y="-34">
+			<name x="483" y="-68">Depot</name>
+		</location>
+		<location id="id7" x="-280" y="8">
+		</location>
+		<location id="id8" x="-59" y="76">
+		</location>
+		<init ref="id0"/>
+		<transition id="id9">
+			<source ref="id8"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-25" y="76">livreC!</label>
+		</transition>
+		<transition id="id10">
+			<source ref="id3"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-170" y="76">endommage!</label>
+		</transition>
+		<transition id="id11">
+			<source ref="id7"/>
+			<target ref="id3"/>
+		</transition>
+		<transition id="id12">
+			<source ref="id0"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-408" y="-25">endommage!</label>
+		</transition>
+		<transition id="id13">
+			<source ref="id0"/>
+			<target ref="id2"/>
+		</transition>
+		<transition id="id14">
+			<source ref="id1"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="272" y="-119">retourDepot!</label>
+		</transition>
+		<transition id="id15">
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="306" y="-34">retourDepot!</label>
+		</transition>
+		<transition id="id16">
+			<source ref="id1"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="119" y="-85">livreE!</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id4"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="17" y="-51">livreD!</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-85" y="-170">livreD!</label>
+		</transition>
+		<transition id="id19">
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="153" y="25">livreE!</label>
+		</transition>
+	</template>
+	<template>
+		<name>ColisC</name>
+		<location id="id20" x="-348" y="-127">
+			<name x="-382" y="-161">EnRoute</name>
+		</location>
+		<location id="id21" x="-348" y="-17">
+			<name x="-373" y="0">Livre</name>
+		</location>
+		<location id="id22" x="-153" y="-127">
+			<name x="-187" y="-161">AuDepot</name>
+		</location>
+		<init ref="id20"/>
+		<transition id="id23">
+			<source ref="id20"/>
+			<target ref="id22"/>
+			<label kind="synchronisation" x="-306" y="-153">retourDepot?</label>
+		</transition>
+		<transition id="id24">
+			<source ref="id20"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="-416" y="-85">livreC?</label>
+		</transition>
+	</template>
+	<template>
+		<name>ColisD</name>
+		<location id="id25" x="-348" y="-127">
+			<name x="-425" y="-136">EnRoute</name>
+		</location>
+		<location id="id26" x="-186" y="-127">
+			<name x="-178" y="-161">Abime</name>
+		</location>
+		<location id="id27" x="-42" y="-127">
+			<name x="-51" y="-161">Endommage</name>
+		</location>
+		<location id="id28" x="94" y="-127">
+			<name x="77" y="-161">Casse</name>
+		</location>
+		<location id="id29" x="-348" y="-17">
+			<name x="-373" y="0">Livre</name>
+		</location>
+		<location id="id30" x="-186" y="-17">
+			<name x="-229" y="0">LivreAbime</name>
+		</location>
+		<location id="id31" x="-42" y="-17">
+			<name x="-93" y="0">LivreEndommage</name>
+		</location>
+		<location id="id32" x="-187" y="-297">
+			<name x="-180" y="-331">AuDepot</name>
+		</location>
+		<init ref="id25"/>
+		<transition id="id33">
+			<source ref="id28"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-34" y="-229">retourDepot?</label>
+		</transition>
+		<transition id="id34">
+			<source ref="id27"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-178" y="-178">retourDepot?</label>
+		</transition>
+		<transition id="id35">
+			<source ref="id26"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-289" y="-178">retourDepot?</label>
+		</transition>
+		<transition id="id36">
+			<source ref="id25"/>
+			<target ref="id32"/>
+			<label kind="synchronisation" x="-365" y="-229">retourDepot?</label>
+		</transition>
+		<transition id="id37">
+			<source ref="id27"/>
+			<target ref="id31"/>
+			<label kind="synchronisation" x="-110" y="-68">livreD?</label>
+		</transition>
+		<transition id="id38">
+			<source ref="id26"/>
+			<target ref="id30"/>
+			<label kind="synchronisation" x="-254" y="-68">livreD?</label>
+		</transition>
+		<transition id="id39">
+			<source ref="id25"/>
+			<target ref="id29"/>
+			<label kind="synchronisation" x="-416" y="-68">livreD?</label>
+		</transition>
+		<transition id="id40">
+			<source ref="id27"/>
+			<target ref="id28"/>
+			<label kind="synchronisation" x="-17" y="-127">endommage?</label>
+		</transition>
+		<transition id="id41">
+			<source ref="id26"/>
+			<target ref="id27"/>
+			<label kind="synchronisation" x="-161" y="-127">endommage?</label>
+		</transition>
+		<transition id="id42">
+			<source ref="id25"/>
+			<target ref="id26"/>
+			<label kind="synchronisation" x="-314" y="-127">endommage?</label>
+		</transition>
+	</template>
+	<template>
+		<name>ColisE</name>
+		<location id="id43" x="0" y="0">
+		</location>
+		<location id="id44" x="204" y="0">
+			<name x="153" y="17">LivreEnRetard</name>
+		</location>
+		<location id="id45" x="212" y="161">
+			<name x="187" y="170">Livre</name>
+		</location>
+		<location id="id46" x="204" y="-153">
+			<name x="178" y="-187">AuDepot</name>
+		</location>
+		<init ref="id43"/>
+		<transition id="id47">
+			<source ref="id43"/>
+			<target ref="id46"/>
+			<label kind="synchronisation" x="0" y="-102">retourDepot?</label>
+		</transition>
+		<transition id="id48">
+			<source ref="id43"/>
+			<target ref="id44"/>
+			<label kind="guard" x="42" y="-25">tempsTotal &gt;= 120</label>
+			<label kind="synchronisation" x="68" y="0">livreE?</label>
+		</transition>
+		<transition id="id49">
+			<source ref="id43"/>
+			<target ref="id45"/>
+			<label kind="guard" x="119" y="68">tempsTotal &lt; 120</label>
+			<label kind="synchronisation" x="51" y="85">livreE?</label>
+		</transition>
+	</template>
+	<system>system PlanA, ColisC, ColisD, ColisE;
+</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; (ColisD.LivreAbime)</formula>
+			<comment/>
+			<result outcome="failure" type="quality" timestamp="2023-11-22 08:47:07 +0100">
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (ColisD.Livre)</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-11-19 14:24:08 +0100">
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (ColisC.Livre &amp;&amp; ColisD.Livre &amp;&amp; ColisE.Livre)</formula>
+			<comment/>
+			<result outcome="failure" type="quality" timestamp="2023-11-22 08:45:38 +0100">
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (ColisC.Livre &amp;&amp; ColisD.LivreEndommage &amp;&amp; ColisE.Livre)</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-11-22 08:46:51 +0100">
+			</result>
+		</query>
+	</queries>
+</nta>
