@@ -1,0 +1,1 @@
+sumsqreven xs = sum (map (^2) (filter even xs))

@@ -12,7 +12,7 @@ rotate x xs = drop x xs ++ take x xs
 
 -- Encode strings
 encode :: Int -> String -> String
-encode x str = [if(ord a == ord ' ') then ' ' else int2let(let2int a + x) | a <- str]
+encode x str = [if(ord a == ord ' ') then ' ' else int2let((let2int a + x) `mod` 26) | a <- str]
 
 -- Code cracker
 table :: [Float]
@@ -37,9 +37,13 @@ freqs str = [percent (count x str) n | x <- ['a'..'z']]
 chisqr :: [Float] -> [Float] -> Float
 chisqr os es = sum [(x-y)^2 / y | (x, y) <- zip os es]
 
+head' :: [a] -> a
+head' [] = error "La liste est vide, aucune tête à extraire."
+head' (x:_) = x
+
 crack :: String -> String
 crack xs = encode (-factor) xs
   where
-    factor = head (positions (minimum chitab) chitab)
+    factor = head' (positions (minimum chitab) chitab)
     chitab = [chisqr (rotate n freqstab) table | n <- [0..25]]
     freqstab = freqs xs
