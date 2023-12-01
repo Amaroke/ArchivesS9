@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TP.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="1">1</h1>
+<pre class="hljs"><code><div>use mathieus1u
+db.createCollection(&quot;movies&quot;)
+</div></code></pre>
+<h1 id="2">2</h1>
+<pre class="hljs"><code><div>db.movies.insertOne({
+    &quot;titre&quot;: &quot;Star Wars, épisode I : La Menace fantôme&quot;,
+    &quot;realisateur&quot;: &quot;George Lucas&quot;
+})
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;acknowledged&quot;: true,
+  &quot;insertedId&quot;: {
+    &quot;$oid&quot;: &quot;6569df43f67c3a71e0a29bb7&quot;
+  }
+}
+</div></code></pre>
+<h1 id="3">3</h1>
+<pre class="hljs"><code><div>db.books.insertMany([
+    {
+        &quot;title&quot;: &quot;The Hobbit; or, There and Back Again&quot;,
+        &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+        &quot;description&quot;: &quot;Now a major motion picture\n A great modern classic and the prelude to THE LORD OF THE RINGS\n Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure. They have launched a plot to raid the treasure hoard guarded by Smaug the Magnificent, a large and very dangerous dragon. Bilbo reluctantly joins their quest, unaware that on his journey to the Lonely Mountain he will encounter both a magic ring and a frightening creature known as Gollum.\n “A glorious account of a magnificent adventure, filled with suspense and seasoned with a quiet humor that is irresistible . . . All those, young or old, who love a fine adventurous tale, beautifully told, will take The Hobbit to their hearts.” – New York Times Book Review&quot;,
+        &quot;format&quot;: {
+            &quot;kindle&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 8.50
+            },
+            &quot;hardcover&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 12.49
+            },
+            &quot;paperback&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 11.13
+            },
+            &quot;audiobook CD&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 28.09
+            }
+        }
+    },
+    {
+        &quot;title&quot;: &quot;The Silmarillion&quot;,
+        &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+        &quot;editor&quot;: &quot;Christopher Tolkien&quot;,
+        &quot;description&quot;: &quot;A number-one New York Times bestseller when it was originally published, THE SILMARILLION is the core of J.R.R. Tolkien's imaginative writing, a work whose origins stretch back to a time long before THE HOBBIT.\n Tolkien considered THE SILMARILLION his most important work, and, though it was published last and posthumously, this great collection of tales and legends clearly sets the stage for all his other writing. The story of the creation of the world and of the the First Age, this is the ancient drama to which the characters in THE LORD OF THE RINGS look back and in whose events some of them, such as Elrond and Galadriel, took part. The three Silmarils were jewels created by Feanor, most gifted of the Elves. Within them was imprisoned the Light of the Two Trees of Valinor before the Trees themselves were destroyed by Morgoth, the first Dark Lord. Thereafter, the unsullied Light of Valinor lived on only in the Silmarils, but they were seized by Morgoth and set in his crown, which was guarded in the impenetrable fortress of Angband in the north of Middle-earth. THE SILMARILLION is the history of the rebellion of Feanor and his kindred against the gods, their exile from Valinor and return to Middle-earth, and their war, hopeless despite all their heroism, against the great Enemy.\n This second edition features a letter written by J.R.R. Tolkien describing his intentions for the book, which serves as a brilliant exposition of his conception of the earlier Ages of Middle-earth.&quot;,
+        &quot;format&quot;: {
+            &quot;kindle&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 8.56
+            },
+            &quot;hardcover&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 13.74
+            },
+            &quot;paperback&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 10.72
+            },
+            &quot;audiobook CD&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 44.06
+            }
+        }
+    },
+    {
+        &quot;title&quot;: &quot;The Fellowship of the Ring: Being the First Part of The Lord of the Rings&quot;,
+        &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+        &quot;description&quot;: &quot;The first volume in J.R.R. Tolkien's epic adventure THE LORD OF THE RINGS\n One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them\n In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell into the hands of Bilbo Baggins, as told in The Hobbit. In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.\n“A unique, wholly realized other world, evoked from deep in the well of Time, massively detailed, absorbingly entertaining, profound in meaning.” – New York Times&quot;,
+        &quot;format&quot;: {
+            &quot;kindle&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 5.38
+            },
+            &quot;hardcover&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 16.92
+            },
+            &quot;paperback&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 10.66
+            },
+            &quot;audiobook CD&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 16.95
+            }
+        }
+    },
+    {
+        &quot;title&quot;: &quot;Tolkien's World from A to Z: The Complete Guide to Middle-Earth&quot;,
+        &quot;author&quot;: &quot;Robert Foster&quot;,
+        &quot;description&quot;: &quot;For the millions who have already ventured to Middle-earth, and for the countless others who have yet to embark on the journey–here is the one indispensable A-to-Z guide that brings Tolkien’s universe to life.\n\n EVERY CHARACTER\n From Adaldrida Brandybuck to Zaragamba–every Hobbit, Elf, Dwarf, Man, Orc, or other resident of Middle-earth is vividly described and accurately located in proper place and time.\n\n EVERY PLACE\n Colorfully detailed descriptions of geographical entries allow you to pick up the action anywhere in Middle-earth and follow it through all five volumes.\n\n EVERY THING\n From stars and streams to food and flora, everything found in Middle-earth is alphabetically listed and, when necessary, cross-referenced.\n\n HERE IS TRULY A MASTER KEY\nTO TOLKIEN’S MIDDLE-EARTH&quot;,
+        &quot;format&quot;: {
+            &quot;hardcover&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 28.98
+            },
+            &quot;paperback&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 11.83
+            }
+        }
+    },
+    {
+        &quot;title&quot;: &quot;The Two Towers: Being the Second Part of The Lord of the Rings&quot;,
+        &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+        &quot;description&quot;: &quot;The second volume in J.R.R. Tolkien's epic adventure THE LORD OF THE RINGS\n One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them\n Frodo and his Companions of the Ring have been beset by danger during their quest to prevent the Ruling Ring from falling into the hands of the Dark Lord by destroying it in the Cracks of Doom. They have lost the wizard, Gandalf, in a battle in the Mines of Moria. And Boromir, seduced by the power of the Ring, tried to seize it by force. While Frodo and Sam made their escape, the rest of the company was attacked by Orcs. Now they continue the journey alone down the great River Anduin—alone, that is, save for the mysterious creeping figure that follows wherever they go.\n\n“Among the greatest works of imaginative fiction of the twentieth century. The book presents us with the richest profusion of new lands and creatures, from the beauty of Lothlórien to the horror of Mordor.” – Sunday Telegraph&quot;,
+        &quot;format&quot;: {
+            &quot;kindle&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;
+                ],
+                &quot;price&quot;: 7.44
+            },
+            &quot;hardcover&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 15.16
+            },
+            &quot;paperback&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 10.59
+            },
+            &quot;audiobook CD&quot;: {
+                &quot;shop&quot;: [
+                    &quot;Amazon&quot;,
+                    &quot;Fnac&quot;
+                ],
+                &quot;price&quot;: 42.74
+            }
+        }
+    }
+])
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;acknowledged&quot;: true,
+  &quot;insertedIds&quot;: {
+    &quot;0&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da78f&quot;
+    },
+    &quot;1&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da790&quot;
+    },
+    &quot;2&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da791&quot;
+    },
+    &quot;3&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da792&quot;
+    },
+    &quot;4&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da793&quot;
+    }
+  }
+}
+</div></code></pre>
+<h1 id="4">4</h1>
+<pre class="hljs"><code><div>db.books.find({
+    author: &quot;J. R. R. Tolkien&quot;
+})
+</div></code></pre>
+<pre class="hljs"><code><div>[
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da78f&quot;
+    },
+    &quot;title&quot;: &quot;The Hobbit; or, There and Back Again&quot;,
+    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;description&quot;: &quot;Now a major motion picture\n A great modern classic and the prelude to THE LORD OF THE RINGS\n Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure. They have launched a plot to raid the treasure hoard guarded by Smaug the Magnificent, a large and very dangerous dragon. Bilbo reluctantly joins their quest, unaware that on his journey to the Lonely Mountain he will encounter both a magic ring and a frightening creature known as Gollum.\n “A glorious account of a magnificent adventure, filled with suspense and seasoned with a quiet humor that is irresistible . . . All those, young or old, who love a fine adventurous tale, beautifully told, will take The Hobbit to their hearts.” – New York Times Book Review&quot;,
+    &quot;format&quot;: {
+      &quot;kindle&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 8.5
+      },
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 12.49
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 11.13
+      },
+      &quot;audiobook CD&quot;: {
+        &quot;shop&quot;: [
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 28.09
+      }
+    }
+  },
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da790&quot;
+    },
+    &quot;title&quot;: &quot;The Silmarillion&quot;,
+    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;editor&quot;: &quot;Christopher Tolkien&quot;,
+    &quot;description&quot;: &quot;A number-one New York Times bestseller when it was originally published, THE SILMARILLION is the core of J.R.R. Tolkien's imaginative writing, a work whose origins stretch back to a time long before THE HOBBIT.\n Tolkien considered THE SILMARILLION his most important work, and, though it was published last and posthumously, this great collection of tales and legends clearly sets the stage for all his other writing. The story of the creation of the world and of the the First Age, this is the ancient drama to which the characters in THE LORD OF THE RINGS look back and in whose events some of them, such as Elrond and Galadriel, took part. The three Silmarils were jewels created by Feanor, most gifted of the Elves. Within them was imprisoned the Light of the Two Trees of Valinor before the Trees themselves were destroyed by Morgoth, the first Dark Lord. Thereafter, the unsullied Light of Valinor lived on only in the Silmarils, but they were seized by Morgoth and set in his crown, which was guarded in the impenetrable fortress of Angband in the north of Middle-earth. THE SILMARILLION is the history of the rebellion of Feanor and his kindred against the gods, their exile from Valinor and return to Middle-earth, and their war, hopeless despite all their heroism, against the great Enemy.\n This second edition features a letter written by J.R.R. Tolkien describing his intentions for the book, which serves as a brilliant exposition of his conception of the earlier Ages of Middle-earth.&quot;,
+    &quot;format&quot;: {
+      &quot;kindle&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 8.56
+      },
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 13.74
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 10.72
+      },
+      &quot;audiobook CD&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 44.06
+      }
+    }
+  },
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da791&quot;
+    },
+    &quot;title&quot;: &quot;The Fellowship of the Ring: Being the First Part of The Lord of the Rings&quot;,
+    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;description&quot;: &quot;The first volume in J.R.R. Tolkien's epic adventure THE LORD OF THE RINGS\n One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them\n In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell into the hands of Bilbo Baggins, as told in The Hobbit. In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.\n“A unique, wholly realized other world, evoked from deep in the well of Time, massively detailed, absorbingly entertaining, profound in meaning.” – New York Times&quot;,
+    &quot;format&quot;: {
+      &quot;kindle&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 5.38
+      },
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 16.92
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 10.66
+      },
+      &quot;audiobook CD&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 16.95
+      }
+    }
+  },
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da793&quot;
+    },
+    &quot;title&quot;: &quot;The Two Towers: Being the Second Part of The Lord of the Rings&quot;,
+    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;description&quot;: &quot;The second volume in J.R.R. Tolkien's epic adventure THE LORD OF THE RINGS\n One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them\n Frodo and his Companions of the Ring have been beset by danger during their quest to prevent the Ruling Ring from falling into the hands of the Dark Lord by destroying it in the Cracks of Doom. They have lost the wizard, Gandalf, in a battle in the Mines of Moria. And Boromir, seduced by the power of the Ring, tried to seize it by force. While Frodo and Sam made their escape, the rest of the company was attacked by Orcs. Now they continue the journey alone down the great River Anduin—alone, that is, save for the mysterious creeping figure that follows wherever they go.\n\n“Among the greatest works of imaginative fiction of the twentieth century. The book presents us with the richest profusion of new lands and creatures, from the beauty of Lothlórien to the horror of Mordor.” – Sunday Telegraph&quot;,
+    &quot;format&quot;: {
+      &quot;kindle&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 7.44
+      },
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 15.16
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 10.59
+      },
+      &quot;audiobook CD&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 42.74
+      }
+    }
+  }
+]
+</div></code></pre>
+<h1 id="5">5</h1>
+<pre class="hljs"><code><div>db.books.find({
+    &quot;format.paperback.shop&quot;: &quot;Fnac&quot;,
+    &quot;format.paperback.price&quot;: {
+        $lt: 11.00
+    }
+},
+    {
+        &quot;title&quot;: 1
+    }).sort(&quot;title&quot;)
+</div></code></pre>
+<pre class="hljs"><code><div>[
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da791&quot;
+    },
+    &quot;title&quot;: &quot;The Fellowship of the Ring: Being the First Part of The Lord of the Rings&quot;
+  },
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da793&quot;
+    },
+    &quot;title&quot;: &quot;The Two Towers: Being the Second Part of The Lord of the Rings&quot;
+  }
+]
+</div></code></pre>
+<h1 id="6">6</h1>
+<pre class="hljs"><code><div>db.books.find({
+    $or: [
+        {
+            &quot;format.kindle.price&quot;: {
+                $lt: 6.00
+            }
+        },
+        { &quot;format.kindle&quot;: { $exists: false } }
+    ]
+})
+</div></code></pre>
+<pre class="hljs"><code><div>[
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da791&quot;
+    },
+    &quot;title&quot;: &quot;The Fellowship of the Ring: Being the First Part of The Lord of the Rings&quot;,
+    &quot;author&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;description&quot;: &quot;The first volume in J.R.R. Tolkien's epic adventure THE LORD OF THE RINGS\n One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them\n In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell into the hands of Bilbo Baggins, as told in The Hobbit. In a sleepy village in the Shire, young Frodo Baggins finds himself faced with an immense task, as his elderly cousin Bilbo entrusts the Ring to his care. Frodo must leave his home and make a perilous journey across Middle-earth to the Cracks of Doom, there to destroy the Ring and foil the Dark Lord in his evil purpose.\n“A unique, wholly realized other world, evoked from deep in the well of Time, massively detailed, absorbingly entertaining, profound in meaning.” – New York Times&quot;,
+    &quot;format&quot;: {
+      &quot;kindle&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 5.38
+      },
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 16.92
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;,
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 10.66
+      },
+      &quot;audiobook CD&quot;: {
+        &quot;shop&quot;: [
+          &quot;Amazon&quot;
+        ],
+        &quot;price&quot;: 16.95
+      }
+    }
+  },
+  {
+    &quot;_id&quot;: {
+      &quot;$oid&quot;: &quot;6569df7233d6c25dfc6da792&quot;
+    },
+    &quot;title&quot;: &quot;Tolkien's World from A to Z: The Complete Guide to Middle-Earth&quot;,
+    &quot;author&quot;: &quot;Robert Foster&quot;,
+    &quot;description&quot;: &quot;For the millions who have already ventured to Middle-earth, and for the countless others who have yet to embark on the journey–here is the one indispensable A-to-Z guide that brings Tolkien’s universe to life.\n\n EVERY CHARACTER\n From Adaldrida Brandybuck to Zaragamba–every Hobbit, Elf, Dwarf, Man, Orc, or other resident of Middle-earth is vividly described and accurately located in proper place and time.\n\n EVERY PLACE\n Colorfully detailed descriptions of geographical entries allow you to pick up the action anywhere in Middle-earth and follow it through all five volumes.\n\n EVERY THING\n From stars and streams to food and flora, everything found in Middle-earth is alphabetically listed and, when necessary, cross-referenced.\n\n HERE IS TRULY A MASTER KEY\nTO TOLKIEN’S MIDDLE-EARTH&quot;,
+    &quot;format&quot;: {
+      &quot;hardcover&quot;: {
+        &quot;shop&quot;: [
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 28.98
+      },
+      &quot;paperback&quot;: {
+        &quot;shop&quot;: [
+          &quot;Fnac&quot;
+        ],
+        &quot;price&quot;: 11.83
+      }
+    }
+  }
+]
+</div></code></pre>
+<h1 id="7">7</h1>
+<pre class="hljs"><code><div>db.books.find({ &quot;description&quot;: { &quot;$regex&quot;: &quot;\.*dwar\.*&quot;, &quot;$options&quot;: &quot;i&quot; } }).count()
+</div></code></pre>
+<p>2</p>
+<h1 id="8">8</h1>
+<pre class="hljs"><code><div>db.books.updateOne(
+    { &quot;title&quot;: &quot;The Hobbit; or, There and Back Again&quot; },
+    {
+        $set:
+        {
+            &quot;format.kindle.price&quot;: 7.00,
+            &quot;personnage&quot;: [&quot;Gandalf&quot;, &quot;Bilbon&quot;, &quot;Elrond&quot;]
+        }
+    }
+)
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;acknowledged&quot;: true,
+  &quot;insertedId&quot;: null,
+  &quot;matchedCount&quot;: 1,
+  &quot;modifiedCount&quot;: 1,
+  &quot;upsertedCount&quot;: 0
+}
+</div></code></pre>
+<h1 id="9">9</h1>
+<pre class="hljs"><code><div>db.books.updateOne(
+    { &quot;title&quot;: &quot;Tolkien's World from A to Z: The Complete Guide to Middle-Earth&quot; },
+    {
+        $push:
+        {
+            &quot;format.paperback.shop&quot;: &quot;Cultura&quot;
+        }
+    }
+)
+</div></code></pre>
+<h1 id="10">10</h1>
+<pre class="hljs"><code><div>db.books.deleteMany(
+    {
+        &quot;personnages&quot;: { $exists: true },
+        &quot;editor&quot;: { $exists: true }
+    }
+)
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;acknowledged&quot;: true,
+  &quot;deletedCount&quot;: 0
+}
+</div></code></pre>
+<h1 id="11">11</h1>
+<pre class="hljs"><code><div>db.books.createIndex(
+    {
+        &quot;title&quot;: 1
+    }
+)
+</div></code></pre>
+<p>title_1</p>
+<h1 id="12">12</h1>
+<pre class="hljs"><code><div>db.books.drop()
+</div></code></pre>
+<pre class="hljs"><code><div>db.books.aggregate({
+    $group:
+    {
+        _id: &quot;$author&quot;,
+        moyenne: {
+            $avg: &quot;$format.kindle.price&quot;
+        }
+    }
+})
+</div></code></pre>
+<pre class="hljs"><code><div>[
+  {
+    &quot;_id&quot;: &quot;J. R. R. Tolkien&quot;,
+    &quot;moyenne&quot;: 7.095000000000001
+  },
+  {
+    &quot;_id&quot;: &quot;Robert Foster&quot;,
+    &quot;moyenne&quot;: null
+  }
+]
+</div></code></pre>
+<h1 id="13">13</h1>
+<pre class="hljs"><code><div>db.books.mapReduce(
+  function () {
+    if (this.format === &quot;paperback&quot;) {
+      emit(this.store, 1);
+    }
+  },
+  function (key, values) {
+    var totalCount = Array.sum(values);
+    return totalCount;
+  },
+  {
+    query: { format: &quot;paperback&quot; },
+    out: &quot;books_count_per_shop&quot;
+  }
+);
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;result&quot;: &quot;books_count_per_shop&quot;,
+  &quot;ok&quot;: 1
+}
+</div></code></pre>
+<h1 id="14">14</h1>
+<pre class="hljs"><code><div>db.books.mapReduce(
+  function () {
+    if (this.store === &quot;Amazon&quot;) {
+      emit(this._id, this);
+    }
+  },
+  function (key, values) {
+    return values[0];
+  },
+  {
+    query: { store: &quot;Amazon&quot; },
+    out: &quot;books_amazon&quot;
+  }
+);
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  &quot;result&quot;: &quot;books_amazon&quot;,
+  &quot;ok&quot;: 1
+}
+</div></code></pre>
+<h1 id="15">15</h1>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> pymongo <span class="hljs-keyword">import</span> MongoClient
+
+client = MongoClient(<span class="hljs-string">"mongodb://localhost:27017"</span>)
+db = client.mathieus1u
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">map_function</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">if</span> this[<span class="hljs-string">'store'</span>] == <span class="hljs-string">'Amazon'</span>:
+        emit(this[<span class="hljs-string">'_id'</span>], this)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reduce_function</span><span class="hljs-params">(key, values)</span>:</span>
+    <span class="hljs-keyword">return</span> values[<span class="hljs-number">0</span>]
+
+result = db.books.map_reduce(
+    map_function,
+    reduce_function,
+    <span class="hljs-string">"books_amazon_python"</span>,
+    query={<span class="hljs-string">"store"</span>: <span class="hljs-string">"Amazon"</span>}
+)
+
+<span class="hljs-keyword">for</span> doc <span class="hljs-keyword">in</span> db.books_amazon_python.find():
+    print(doc[<span class="hljs-string">'title'</span>])
+</div></code></pre>
+
+</body>
+</html>
