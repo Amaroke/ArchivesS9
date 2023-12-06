@@ -1,124 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
 <nta>
-	<declaration>broadcast chan endommage;
-chan livreC, livreD, livreE;
+	<declaration>broadcast chan endommage, dejaLivreA, dejaLivreB, dejaLivreC;
+chan livreA, livreB, livreC, livreD, livreE;
 clock tempsTrajet, tempsTotal;</declaration>
 	<template>
+		<name>PasDeColis</name>
+		<parameter>broadcast chan &amp;dejaLivre</parameter>
+		<location id="id0" x="0" y="0">
+		</location>
+		<init ref="id0"/>
+		<transition id="id1">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-17" y="-59">dejaLivre!</label>
+			<nail x="102" y="-51"/>
+			<nail x="59" y="25"/>
+		</transition>
+	</template>
+	<template>
 		<name x="5" y="5">PlanDeLivraison</name>
-		<location id="id0" x="-357" y="-119">
+		<parameter>const int tempsSA, const int tempsSB, const int tempsAC, const int tempsBD, const int tempsCD, const int tempsCE, const int tempsDE, const int tempsES</parameter>
+		<location id="id2" x="-357" y="-119">
 			<name x="-383" y="-153">Depart</name>
 			<urgent/>
 		</location>
-		<location id="id1" x="85" y="-203">
+		<location id="id3" x="85" y="-203">
 			<name x="59" y="-237">MaisonD</name>
 		</location>
-		<location id="id2" x="-186" y="-203">
+		<location id="id4" x="-186" y="-203">
 			<name x="-220" y="-237">MaisonB</name>
 		</location>
-		<location id="id3" x="-186" y="17">
+		<location id="id5" x="-186" y="17">
 			<name x="-220" y="34">MaisonA</name>
 		</location>
-		<location id="id4" x="85" y="17">
+		<location id="id6" x="85" y="17">
 			<name x="51" y="34">MaisonC</name>
 		</location>
-		<location id="id5" x="255" y="-93">
-			<name x="247" y="-127">MaisonE</name>
+		<location id="id7" x="442" y="-93">
+			<name x="434" y="-127">MaisonE</name>
 		</location>
-		<location id="id6" x="-271" y="-51">
+		<location id="id8" x="-272" y="-51">
 		</location>
-		<location id="id7" x="-50" y="17">
+		<location id="id9" x="-50" y="17">
 		</location>
-		<init ref="id0"/>
-		<transition id="id8">
-			<source ref="id4"/>
-			<target ref="id5"/>
-			<nail x="204" y="8"/>
-		</transition>
-		<transition id="id9">
-			<source ref="id4"/>
-			<target ref="id1"/>
-			<nail x="119" y="-51"/>
-		</transition>
+		<init ref="id2"/>
 		<transition id="id10">
-			<source ref="id1"/>
+			<source ref="id8"/>
 			<target ref="id5"/>
-			<nail x="246" y="-178"/>
+			<label kind="synchronisation" x="-340" y="8">dejaLivreA?</label>
+			<nail x="-238" y="25"/>
 		</transition>
 		<transition id="id11">
 			<source ref="id2"/>
-			<target ref="id1"/>
-			<nail x="-59" y="-263"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-365" y="-255">dejaLivreB?</label>
+			<nail x="-331" y="-221"/>
 		</transition>
 		<transition id="id12">
-			<source ref="id7"/>
-			<target ref="id4"/>
-			<nail x="8" y="-17"/>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="153" y="17">tempsTrajet == tempsCE</label>
+			<label kind="assignment" x="229" y="0">tempsTrajet=0</label>
+			<nail x="204" y="8"/>
 		</transition>
 		<transition id="id13">
-			<source ref="id5"/>
-			<target ref="id0"/>
-			<nail x="450" y="-93"/>
-			<nail x="450" y="212"/>
-			<nail x="-357" y="212"/>
-		</transition>
-		<transition id="id14">
-			<source ref="id7"/>
-			<target ref="id4"/>
-			<label kind="synchronisation" x="-16" y="17">livreC!</label>
-		</transition>
-		<transition id="id15">
-			<source ref="id3"/>
-			<target ref="id7"/>
-			<label kind="synchronisation" x="-161" y="17">endommage!</label>
-		</transition>
-		<transition id="id16">
 			<source ref="id6"/>
 			<target ref="id3"/>
+			<label kind="guard" x="110" y="-102">tempsTrajet == tempsCD</label>
+			<label kind="assignment" x="119" y="-119">tempsTrajet=0</label>
+			<nail x="102" y="-85"/>
+		</transition>
+		<transition id="id14">
+			<source ref="id3"/>
+			<target ref="id7"/>
+			<label kind="guard" x="110" y="-136">tempsTrajet == tempsDE</label>
+			<label kind="assignment" x="280" y="-195">tempsTrajet=0</label>
+			<nail x="212" y="-204"/>
+		</transition>
+		<transition id="id15">
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-170" y="-289">tempsTrajet == tempsBD</label>
+			<label kind="assignment" x="-136" y="-306">tempsTrajet=0</label>
+			<nail x="-59" y="-263"/>
+		</transition>
+		<transition id="id16">
+			<source ref="id9"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-110" y="-34">tempsTrajet == tempsAC</label>
+			<label kind="synchronisation" x="-34" y="-17">dejaLivreC?</label>
+			<label kind="assignment" x="-34" y="-51">tempsTrajet=0</label>
+			<nail x="8" y="-17"/>
 		</transition>
 		<transition id="id17">
-			<source ref="id0"/>
-			<target ref="id6"/>
-			<label kind="synchronisation" x="-306" y="-102">endommage!</label>
+			<source ref="id7"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-569" y="-17">tempsTrajet == tempsES</label>
+			<label kind="assignment" x="-509" y="-51">tempsTrajet = 0</label>
+			<nail x="442" y="-51"/>
+			<nail x="442" y="254"/>
+			<nail x="-365" y="254"/>
 		</transition>
 		<transition id="id18">
-			<source ref="id0"/>
-			<target ref="id2"/>
+			<source ref="id9"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-76" y="59">tempsTrajet == tempsAC</label>
+			<label kind="synchronisation" x="-16" y="17">livreC!</label>
+			<label kind="assignment" x="-76" y="34">tempsTrajet=0</label>
 		</transition>
 		<transition id="id19">
-			<source ref="id1"/>
-			<target ref="id5"/>
-			<label kind="synchronisation" x="128" y="-135">livreE!</label>
+			<source ref="id5"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-161" y="17">endommage!</label>
 		</transition>
 		<transition id="id20">
-			<source ref="id4"/>
-			<target ref="id1"/>
-			<label kind="synchronisation" x="17" y="-110">livreD!</label>
+			<source ref="id8"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-255" y="-68">tempsTrajet == tempsSA</label>
+			<label kind="synchronisation" x="-204" y="-51">livreA?</label>
+			<label kind="assignment" x="-229" y="-34">tempsTrajet=0</label>
 		</transition>
 		<transition id="id21">
 			<source ref="id2"/>
-			<target ref="id1"/>
-			<label kind="synchronisation" x="-76" y="-229">livreD!</label>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-306" y="-102">endommage!</label>
 		</transition>
 		<transition id="id22">
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-272" y="-153">tempsTrajet == tempsSB</label>
+			<label kind="synchronisation" x="-331" y="-187">livreB?</label>
+			<label kind="assignment" x="-272" y="-170">tempsTrajet=0</label>
+		</transition>
+		<transition id="id23">
+			<source ref="id3"/>
+			<target ref="id7"/>
+			<label kind="guard" x="272" y="-170">tempsTrajet == tempsDE</label>
+			<label kind="synchronisation" x="153" y="-161">livreE!</label>
+		</transition>
+		<transition id="id24">
+			<source ref="id6"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-110" y="-93">tempsTrajet == tempsCD</label>
+			<label kind="synchronisation" x="17" y="-110">livreD!</label>
+			<label kind="assignment" x="-42" y="-127">tempsTrajet=0</label>
+		</transition>
+		<transition id="id25">
 			<source ref="id4"/>
-			<target ref="id5"/>
-			<label kind="synchronisation" x="162" y="-34">livreE!</label>
+			<target ref="id3"/>
+			<label kind="guard" x="-144" y="-195">tempsTrajet == tempsBD</label>
+			<label kind="synchronisation" x="-67" y="-229">livreD!</label>
+			<label kind="assignment" x="-102" y="-178">tempsTrajet=0</label>
+		</transition>
+		<transition id="id26">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="110" y="-75">tempsTrajet == tempsCE</label>
+			<label kind="synchronisation" x="127" y="-42">livreE!</label>
+			<label kind="assignment" x="119" y="-59">tempsTrajet=0</label>
 		</transition>
 	</template>
 	<template>
 		<name>ColisNormal</name>
-		<parameter>chan &amp;livre</parameter>
-		<location id="id23" x="-348" y="-127">
+		<parameter>chan &amp;livre, broadcast chan &amp;dejaLivre</parameter>
+		<location id="id27" x="-348" y="-127">
 			<name x="-382" y="-110">EnRoute</name>
 		</location>
-		<location id="id24" x="-212" y="-127">
+		<location id="id28" x="-212" y="-127">
 			<name x="-237" y="-110">Livre</name>
 		</location>
-		<init ref="id23"/>
-		<transition id="id25">
-			<source ref="id23"/>
-			<target ref="id24"/>
+		<init ref="id27"/>
+		<transition id="id29">
+			<source ref="id28"/>
+			<target ref="id28"/>
+			<label kind="synchronisation" x="-93" y="-153">dejaLivre!</label>
+			<nail x="-120" y="-157"/>
+			<nail x="-103" y="-106"/>
+		</transition>
+		<transition id="id30">
+			<source ref="id27"/>
+			<target ref="id28"/>
 			<label kind="synchronisation" x="-306" y="-153">livre?</label>
 		</transition>
 	</template>
@@ -126,41 +188,41 @@ clock tempsTrajet, tempsTotal;</declaration>
 		<name>ColisFragile</name>
 		<parameter>chan &amp;livre, const int chocMax</parameter>
 		<declaration>int choc;</declaration>
-		<location id="id26" x="-348" y="-238">
+		<location id="id31" x="-348" y="-238">
 			<name x="-425" y="-238">EnRoute</name>
 		</location>
-		<location id="id27" x="-93" y="-238">
+		<location id="id32" x="-93" y="-238">
 			<name x="-127" y="-272">Abime</name>
 		</location>
-		<location id="id28" x="-349" y="-128">
+		<location id="id33" x="-349" y="-128">
 			<name x="-374" y="-111">Livre</name>
 		</location>
-		<location id="id29" x="-93" y="-119">
+		<location id="id34" x="-93" y="-119">
 			<name x="-136" y="-102">LivreAbime</name>
 		</location>
-		<init ref="id26"/>
-		<transition id="id30">
-			<source ref="id26"/>
-			<target ref="id26"/>
+		<init ref="id31"/>
+		<transition id="id35">
+			<source ref="id31"/>
+			<target ref="id31"/>
 			<label kind="guard" x="-425" y="-365">choc &lt;= chocMax</label>
 			<label kind="synchronisation" x="-399" y="-348">endommage?</label>
 			<label kind="assignment" x="-391" y="-331">choc += 1</label>
 			<nail x="-323" y="-306"/>
 			<nail x="-382" y="-306"/>
 		</transition>
-		<transition id="id31">
-			<source ref="id27"/>
-			<target ref="id29"/>
+		<transition id="id36">
+			<source ref="id32"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="-85" y="-187">livre?</label>
 		</transition>
-		<transition id="id32">
-			<source ref="id26"/>
-			<target ref="id28"/>
+		<transition id="id37">
+			<source ref="id31"/>
+			<target ref="id33"/>
 			<label kind="synchronisation" x="-408" y="-195">livre?</label>
 		</transition>
-		<transition id="id33">
-			<source ref="id26"/>
-			<target ref="id27"/>
+		<transition id="id38">
+			<source ref="id31"/>
+			<target ref="id32"/>
 			<label kind="guard" x="-289" y="-263">choc == chocMax</label>
 			<label kind="synchronisation" x="-263" y="-229">endommage?</label>
 		</transition>
@@ -168,33 +230,46 @@ clock tempsTrajet, tempsTotal;</declaration>
 	<template>
 		<name>ColisPrioritaire</name>
 		<parameter>chan &amp;livre, const int tempsLimite</parameter>
-		<location id="id34" x="0" y="-76">
+		<location id="id39" x="0" y="-76">
 		</location>
-		<location id="id35" x="212" y="-170">
+		<location id="id40" x="212" y="-170">
 			<name x="229" y="-178">LivreEnRetard</name>
 		</location>
-		<location id="id36" x="212" y="25">
+		<location id="id41" x="212" y="25">
 			<name x="229" y="17">Livre</name>
 		</location>
-		<init ref="id34"/>
-		<transition id="id37">
-			<source ref="id34"/>
-			<target ref="id35"/>
+		<init ref="id39"/>
+		<transition id="id42">
+			<source ref="id39"/>
+			<target ref="id40"/>
 			<label kind="guard" x="-76" y="-170">tempsTotal &gt;= tempsLimite</label>
 			<label kind="synchronisation" x="34" y="-153">livre?</label>
 		</transition>
-		<transition id="id38">
-			<source ref="id34"/>
-			<target ref="id36"/>
+		<transition id="id43">
+			<source ref="id39"/>
+			<target ref="id41"/>
 			<label kind="guard" x="-59" y="0">tempsTotal &lt; tempsLimite</label>
 			<label kind="synchronisation" x="34" y="-17">livre?</label>
 		</transition>
 	</template>
-	<system>ColisC = ColisNormal(livreC);
+	<system>const int tempsSA = 20;
+const int tempsSB = 20;
+const int tempsAC = 20;
+const int tempsBD = 20;
+const int tempsCD = 20;
+const int tempsCE = 20;
+const int tempsDE = 20;
+const int tempsES = 20;
+
+ColisA = PasDeColis(dejaLivreA);
+ColisB = PasDeColis(dejaLivreB);
+ColisC = ColisNormal(livreC, dejaLivreC);
 ColisD = ColisFragile(livreD, 3);
 ColisE = ColisPrioritaire(livreE, 120);
 
-system PlanDeLivraison, ColisC, ColisD, ColisE;
+PlanDeLivraisonTest = PlanDeLivraison(tempsSA, tempsSB, tempsAC, tempsBD, tempsCD, tempsCE, tempsDE, tempsES);
+
+system PlanDeLivraisonTest, ColisC, ColisD, ColisE;
 </system>
 	<queries>
 		<query>
