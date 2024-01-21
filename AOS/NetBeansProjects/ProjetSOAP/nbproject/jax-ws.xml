@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="HelloWorldServiceImpl">
+      <implementation-class>ws.soap.helloworld.HelloWorldServiceImpl</implementation-class>
+    </service>
+    <service name="TrainServiceImpl">
+      <implementation-class>ws.soap.train.TrainServiceImpl</implementation-class>
+    </service>
+    <service name="ConnectionServiceImpl">
+      <implementation-class>ws.soap.connection.ConnectionServiceImpl</implementation-class>
+    </service>
+    <service name="ReservationsServiceImpl">
+      <implementation-class>ws.soap.reservation.ReservationsServiceImpl</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

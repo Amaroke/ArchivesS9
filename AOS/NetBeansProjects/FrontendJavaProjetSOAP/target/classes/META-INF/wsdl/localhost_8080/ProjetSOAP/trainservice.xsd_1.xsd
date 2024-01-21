@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://train.soap.ws/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://train.soap.ws/">
+
+<xs:element name="AddTrain" type="tns:AddTrain"/>
+
+<xs:element name="AddTrainResponse" type="tns:AddTrainResponse"/>
+
+<xs:element name="CancelTrain" type="tns:CancelTrain"/>
+
+<xs:element name="CancelTrainResponse" type="tns:CancelTrainResponse"/>
+
+<xs:element name="DeleteTrain" type="tns:DeleteTrain"/>
+
+<xs:element name="DeleteTrainResponse" type="tns:DeleteTrainResponse"/>
+
+<xs:element name="GetAllTrains" type="tns:GetAllTrains"/>
+
+<xs:element name="GetAllTrainsResponse" type="tns:GetAllTrainsResponse"/>
+
+<xs:element name="SearchTrains" type="tns:SearchTrains"/>
+
+<xs:element name="SearchTrainsAdmin" type="tns:SearchTrainsAdmin"/>
+
+<xs:element name="SearchTrainsAdminResponse" type="tns:SearchTrainsAdminResponse"/>
+
+<xs:element name="SearchTrainsResponse" type="tns:SearchTrainsResponse"/>
+
+<xs:element name="UpdateTrain" type="tns:UpdateTrain"/>
+
+<xs:element name="UpdateTrainResponse" type="tns:UpdateTrainResponse"/>
+
+<xs:complexType name="GetAllTrains">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetAllTrainsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:train" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="train">
+<xs:sequence>
+<xs:element name="arrivalCity" type="xs:string" minOccurs="0"/>
+<xs:element name="availableSeats" type="xs:int"/>
+<xs:element name="date" type="xs:string" minOccurs="0"/>
+<xs:element name="departureCity" type="xs:string" minOccurs="0"/>
+<xs:element name="departureTime" type="xs:int"/>
+<xs:element name="number" type="xs:string" minOccurs="0"/>
+<xs:element name="state" type="xs:string" minOccurs="0"/>
+<xs:element name="ticketPrice" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteTrain">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DeleteTrainResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="AddTrain">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:int"/>
+<xs:element name="arg4" type="xs:double"/>
+<xs:element name="arg5" type="xs:int"/>
+<xs:element name="arg6" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="AddTrainResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="SearchTrainsAdmin">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:string" minOccurs="0"/>
+<xs:element name="arg4" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchTrainsAdminResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:train" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="UpdateTrain">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:string" minOccurs="0"/>
+<xs:element name="arg4" type="xs:int"/>
+<xs:element name="arg5" type="xs:double"/>
+<xs:element name="arg6" type="xs:int"/>
+<xs:element name="arg7" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="UpdateTrainResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="CancelTrain">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CancelTrainResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="SearchTrains">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+<xs:element name="arg1" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="arg3" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SearchTrainsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:train" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

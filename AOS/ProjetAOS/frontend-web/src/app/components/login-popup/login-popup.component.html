@@ -1,0 +1,52 @@
+<div
+  class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center"
+>
+  <div
+    class="fixed top-0 left-0 w-screen h-screen bg-gray-800 bg-opacity-70"
+  ></div>
+  <div class="bg-white p-8 rounded-lg shadow-xl relative z-50">
+    <form #loginForm="">
+      <h2 class="text-3xl mb-4">Connexion</h2>
+
+      <div class="mb-4">
+        <label>Numéro de membre :</label>
+        <input
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="Numéro de membre"
+          required
+          name="numeroMembre"
+          [(ngModel)]="numeroMembre"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label>Mot de passe :</label>
+        <input
+          type="password"
+          class="w-full px-3 py-2 border rounded-md"
+          placeholder="Mot de passe"
+          required
+          name="motDePasse"
+          [(ngModel)]="motDePasse"
+        />
+      </div>
+
+      <div class="mt-4 flex justify-center">
+        <button
+          type="button"
+          (click)="closePopup()"
+          class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+        >
+          Annuler
+        </button>
+        <button
+          type="submit"
+          (click)="login()"
+          class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg ml-2"
+        >
+          Se connecter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

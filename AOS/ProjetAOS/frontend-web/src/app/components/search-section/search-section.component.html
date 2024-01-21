@@ -1,0 +1,59 @@
+<div class="bg-background p-6 rounded-lg shadow-md sticky top-16 bg-slate-50">
+  <div class="mb-4">
+    <div class="mb-4 flex space-x-4 items-center">
+      <button
+        [disabled]="activeTab === 'vehicules'"
+        (click)="setActiveTab('vehicules')"
+        [class.font-bold]="activeTab === 'vehicules'"
+      >
+        Véhicules
+      </button>
+      <div class="border-r border-gray-400 h-5 mx-4"></div>
+      <button
+        [disabled]="activeTab === 'reservations'"
+        (click)="setActiveTab('reservations')"
+        [class.font-bold]="activeTab === 'reservations'"
+      >
+        Réservations
+      </button>
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="Rechercher un véhicule..."
+        class="w-full px-4 py-2 border rounded-lg"
+        [(ngModel)]="searchQuery"
+        (input)="setSearchQuery($event)"
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        placeholder="Rechercher une marque..."
+        class="w-full px-4 py-2 border rounded-lg"
+        [(ngModel)]="searchQuery"
+        (input)="setSearchQuery($event)"
+      />
+    </div>
+  </div>
+  <div class="mb-4 flex items-center">
+    <input
+      type="checkbox"
+      id="my-activities"
+      class="mr-2"
+      [(ngModel)]="searchOwner"
+      (change)="setSearchOwner($event)"
+    />
+    <label for=" my-activities">N'afficher que les disponibles</label>
+  </div>
+  <div class="mb-4 flex flex-col">
+    <label for="start-date" class="mb-1">Pour la date :</label>
+    <input
+      type="date"
+      id="start-date"
+      class="w-full px-4 py-2 border rounded-lg"
+      [(ngModel)]="searchDate"
+      (input)="setSearchDate($event)"
+    />
+  </div>
+</div>

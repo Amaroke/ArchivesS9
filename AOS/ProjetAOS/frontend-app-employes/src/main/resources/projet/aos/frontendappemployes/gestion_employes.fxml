@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="20.0"
+   xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="projet.aos.frontendappemployes.controllers.GestionDesEmployesController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Label alignment="CENTER" prefWidth="200.0" text="Gestion des employés">
+         <HBox.margin>
+            <Insets right="20.0" />
+         </HBox.margin>
+      </Label>
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Button mnemonicParsing="false" onAction="#onAfficherEmployesClick" prefWidth="200.0"
+         text="Afficher tous les employés">
+         <HBox.margin>
+            <Insets right="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onRechercherEmployeClick" prefWidth="200.0"
+         text="Rechercher un employé" />
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Button mnemonicParsing="false" onAction="#onAjouterEmployeClick" prefWidth="200.0"
+         text="Ajouter un employé">
+         <HBox.margin>
+            <Insets right="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onModifierEmployeClick" prefWidth="200.0"
+         text="Modifier un employé" />
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <Button mnemonicParsing="false" onAction="#onSupprimerEmployeClick" prefWidth="200.0"
+         text="Supprimer un employé">
+         <HBox.margin>
+            <Insets right="20.0" />
+         </HBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onValiderReservationsClick" prefWidth="200.0"
+         text="Valider des réservations" />
+   </HBox>
+</VBox>

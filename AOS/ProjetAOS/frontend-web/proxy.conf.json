@@ -1,0 +1,10 @@
+{
+  "/api/json/*": {
+    "target": "http://localhost:8082",
+    "secure": false
+  },
+  "/api/json/employes/login": {
+    "target": "http://localhost:8082",
+    "secure": false
+  }
+}

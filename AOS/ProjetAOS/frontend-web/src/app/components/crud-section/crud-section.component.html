@@ -1,0 +1,32 @@
+<div class="bg-background p-8 rounded-lg shadow-md sticky top-16 bg-slate-50">
+  <div class="mb-4 flex flex-wrap justify-center items-center">
+    <button
+      (click)="openLoginPopup()"
+      class="bg-pink-500 hover:bg-pink-600 btn btn-success mb-2 w-full text-white px-4 py-2 rounded-lg"
+    >
+      Me connecter
+    </button>
+    <button
+      (click)="deconnexion()"
+      [disabled]="isLoggedOut()"
+      [class.bg-yellow-500]="!isLoggedOut()"
+      [class.bg-gray-400]="isLoggedOut()"
+      [class.hover:bg-yellow-600]="!isLoggedOut()"
+      class="btn btn-success mb-2 w-full text-white px-4 py-2 rounded-lg"
+    >
+      Me déconnecter
+    </button>
+    <button
+      (click)="openPopup()"
+      class="bg-green-500 hover:bg-green-600 btn btn-success mb-2 w-full text-white px-4 py-2 rounded-lg"
+    >
+      Créer une réservation
+    </button>
+    <button
+      (click)="openPopup()"
+      class="bg-red-500 hover:bg-red-600 btn btn-success mb-2 w-full text-white px-4 py-2 rounded-lg"
+    >
+      Supprimer ma réservation
+    </button>
+  </div>
+</div>
