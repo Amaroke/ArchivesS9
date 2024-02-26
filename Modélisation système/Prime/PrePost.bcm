@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.scMachineFile org.eventb.core.accurate="true" org.eventb.core.configuration="org.eventb.core.fwd">
+    <org.eventb.core.scSeesContext name="'" org.eventb.core.scTarget="/Prime/C0.bcc" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.seesContext#_wsqs0MgtEe67_pe46YZ-uQ"/>
+    <org.eventb.core.scInternalContext name="C0">
+        <org.eventb.core.scAxiom name="'" org.eventb.core.label="axm1" org.eventb.core.predicate="n∈ℕ" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_QocF4MguEe67_pe46YZ-uQ" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name="(" org.eventb.core.label="axm2" org.eventb.core.predicate="d∈ℕ → ℙ(ℕ)" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuJ6IMjiEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name=")" org.eventb.core.label="axm3" org.eventb.core.predicate="isprime∈ℕ → BOOL" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuKhMMjiEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name="*" org.eventb.core.label="axm4" org.eventb.core.predicate="d(0)=(∅ ⦂ ℙ(ℤ))" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuKhMcjiEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name="+" org.eventb.core.label="axm5" org.eventb.core.predicate="∀x⦂ℤ·x∈ℕ⇒(n mod (x+1)=0⇒d(x+1)=d(x)∪{x+1})" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuLvUMjiEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name="," org.eventb.core.label="axm6" org.eventb.core.predicate="∀x⦂ℤ·x∈ℕ⇒(n mod (x+1)≠0⇒d(x+1)=d(x))" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_BgCyEMjsEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scAxiom name="-" org.eventb.core.label="axm7" org.eventb.core.predicate="isprime(n)=bool(n&gt;1∧d(n)={1,n})" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_BgCyEcjsEe6-Z9PCABxFkA" org.eventb.core.theorem="false"/>
+        <org.eventb.core.scConstant name="d" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.constant#_faOOMMjpEe6-Z9PCABxFkA" org.eventb.core.type="ℙ(ℤ×ℙ(ℤ))"/>
+        <org.eventb.core.scConstant name="n" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.constant#_yin0sMjkEe6-Z9PCABxFkA" org.eventb.core.type="ℤ"/>
+        <org.eventb.core.scConstant name="isprime" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.constant#_KrdqsMjqEe6-Z9PCABxFkA" org.eventb.core.type="ℙ(ℤ×BOOL)"/>
+    </org.eventb.core.scInternalContext>
+    <org.eventb.core.scInvariant name="C1" org.eventb.core.label="inv1" org.eventb.core.predicate="r∈BOOL" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.invariant#_bfN4csf9Ee6f6MzrQ1gxGw" org.eventb.core.theorem="false"/>
+    <org.eventb.core.scVariable name="r" org.eventb.core.abstract="false" org.eventb.core.concrete="true" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.variable#_ErzyMMjmEe6-Z9PCABxFkA" org.eventb.core.type="BOOL"/>
+    <org.eventb.core.scEvent name="C2" org.eventb.core.accurate="true" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="INITIALISATION" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#'">
+        <org.eventb.core.scAction name="'" org.eventb.core.assignment="r :∈ BOOL" org.eventb.core.label="act1" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#'|org.eventb.core.action#_bfMqUMf9Ee6f6MzrQ1gxGw"/>
+    </org.eventb.core.scEvent>
+    <org.eventb.core.scEvent name="C3" org.eventb.core.accurate="true" org.eventb.core.convergence="0" org.eventb.core.extended="false" org.eventb.core.label="computing" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#_VeNYYMjmEe6-Z9PCABxFkA">
+        <org.eventb.core.scAction name="'" org.eventb.core.assignment="r ≔ isprime(n)" org.eventb.core.label="act1" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#_VeNYYMjmEe6-Z9PCABxFkA|org.eventb.core.action#_bfNRYcf9Ee6f6MzrQ1gxGw"/>
+    </org.eventb.core.scEvent>
+</org.eventb.core.scMachineFile>

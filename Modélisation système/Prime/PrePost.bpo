@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="33">
+    <org.eventb.core.poPredicateSet name="CTXHYP" org.eventb.core.poStamp="33">
+        <org.eventb.core.poIdentifier name="d" org.eventb.core.type="ℙ(ℤ×ℙ(ℤ))"/>
+        <org.eventb.core.poIdentifier name="n" org.eventb.core.type="ℤ"/>
+        <org.eventb.core.poIdentifier name="isprime" org.eventb.core.type="ℙ(ℤ×BOOL)"/>
+        <org.eventb.core.poPredicate name="isprimf" org.eventb.core.predicate="n∈ℕ" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_QocF4MguEe67_pe46YZ-uQ"/>
+        <org.eventb.core.poPredicate name="isprimg" org.eventb.core.predicate="d∈ℕ → ℙ(ℕ)" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuJ6IMjiEe6-Z9PCABxFkA"/>
+        <org.eventb.core.poPredicate name="isprimh" org.eventb.core.predicate="isprime∈ℕ → BOOL" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuKhMMjiEe6-Z9PCABxFkA"/>
+        <org.eventb.core.poPredicate name="isprimi" org.eventb.core.predicate="d(0)=(∅ ⦂ ℙ(ℤ))" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuKhMcjiEe6-Z9PCABxFkA"/>
+        <org.eventb.core.poPredicate name="isprimj" org.eventb.core.predicate="∀x⦂ℤ·x∈ℕ⇒(n mod (x+1)=0⇒d(x+1)=d(x)∪{x+1})" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_WuLvUMjiEe6-Z9PCABxFkA"/>
+        <org.eventb.core.poPredicate name="isprimk" org.eventb.core.predicate="∀x⦂ℤ·x∈ℕ⇒(n mod (x+1)≠0⇒d(x+1)=d(x))" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_BgCyEMjsEe6-Z9PCABxFkA"/>
+        <org.eventb.core.poPredicate name="ispriml" org.eventb.core.predicate="isprime(n)=bool(n&gt;1∧d(n)={1,n})" org.eventb.core.source="/Prime/C0.buc|org.eventb.core.contextFile#C0|org.eventb.core.axiom#_BgCyEcjsEe6-Z9PCABxFkA"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="33">
+        <org.eventb.core.poIdentifier name="r" org.eventb.core.type="BOOL"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poSequent name="INITIALISATION/act1/FIS" org.eventb.core.accurate="true" org.eventb.core.poDesc="Feasibility of action" org.eventb.core.poStamp="33">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTALLHYPC2"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="BOOL≠(∅ ⦂ ℙ(BOOL))" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#'|org.eventb.core.action#_bfMqUMf9Ee6f6MzrQ1gxGw"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#'|org.eventb.core.action#_bfMqUMf9Ee6f6MzrQ1gxGw"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poSelHintSnd="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTALLHYPC2"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poPredicateSet name="EVTIDENTC2" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#CTXHYP" org.eventb.core.poStamp="33">
+        <org.eventb.core.poIdentifier name="r'" org.eventb.core.type="BOOL"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="EVTALLHYPC2" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTIDENTC2" org.eventb.core.poStamp="33"/>
+    <org.eventb.core.poSequent name="computing/act1/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of action" org.eventb.core.poStamp="33">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTALLHYPC3"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="n∈dom(isprime)∧isprime∈ℤ ⇸ BOOL" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#_VeNYYMjmEe6-Z9PCABxFkA|org.eventb.core.action#_bfNRYcf9Ee6f6MzrQ1gxGw"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.event#_VeNYYMjmEe6-Z9PCABxFkA|org.eventb.core.action#_bfNRYcf9Ee6f6MzrQ1gxGw"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poSelHintSnd="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTALLHYPC3"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poPredicateSet name="EVTIDENTC3" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#ALLHYP" org.eventb.core.poStamp="33">
+        <org.eventb.core.poIdentifier name="r'" org.eventb.core.type="BOOL"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="EVTALLHYPC3" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#EVTIDENTC3" org.eventb.core.poStamp="33"/>
+    <org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/Prime/PrePost.bpo|org.eventb.core.poFile#PrePost|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="33">
+        <org.eventb.core.poPredicate name="PRD0" org.eventb.core.predicate="r∈BOOL" org.eventb.core.source="/Prime/PrePost.bum|org.eventb.core.machineFile#PrePost|org.eventb.core.invariant#_bfN4csf9Ee6f6MzrQ1gxGw"/>
+    </org.eventb.core.poPredicateSet>
+</org.eventb.core.poFile>
