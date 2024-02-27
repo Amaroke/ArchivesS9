@@ -5,9 +5,10 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class TaskReducer extends Reducer<Text, IntWritable, Text, Text> {
-    
+
     @Override
-    public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<IntWritable> values, Context context)
+            throws IOException, InterruptedException {
         int totalDuration = 0;
         int instanceCount = 0;
         int stragglerCount = 0;
@@ -33,11 +34,13 @@ public class TaskReducer extends Reducer<Text, IntWritable, Text, Text> {
 
         // Afficher des informations résumées pour le débogage
         if (stragglerCount > 0 || instanceCount > 1000) { // Afficher seulement pour les tâches significatives
-            System.out.println("Tâche: " + key.toString() + ", Stragglers: " + stragglerCount + ", Instances: " + instanceCount);
+            System.out.println(
+                    "Tâche: " + key.toString() + ", Stragglers: " + stragglerCount + ", Instances: " + instanceCount);
         }
 
         // Écrire le résultat pour la tâche
-        String result = "Durée Totale: " + totalDuration + ", Nombre d'Instances: " + instanceCount + ", Stragglers: " + stragglerCount;
+        String result = "Durée Totale: " + totalDuration + ", Nombre d'Instances: " + instanceCount + ", Stragglers: "
+                + stragglerCount;
         context.write(key, new Text(result));
     }
 }
