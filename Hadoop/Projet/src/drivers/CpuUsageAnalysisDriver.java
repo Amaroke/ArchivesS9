@@ -9,11 +9,11 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-public class TaskAnalysisDriver extends Configured implements Tool {
+public class CpuUsageAnalysisDriver extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
         if (args.length != 2) {
-            System.out.printf("Usage: TaskAnalysisDriver <input dir> <output dir>\n");
+            System.out.printf("Usage: CpuUsageAnalysisDriver <input dir> <output dir>\n");
             System.exit(-1);
         }
 
@@ -21,23 +21,23 @@ public class TaskAnalysisDriver extends Configured implements Tool {
 
         // Création d'un nouveau job Map/Reduce et configuration
         Job job = Job.getInstance(conf);
-        job.setJarByClass(TaskAnalysisDriver.class);
-        job.setJobName("Task Analysis");
+        job.setJarByClass(CpuUsageAnalysisDriver.class);
+        job.setJobName("CPU Usage Analysis");
 
         // Définition des chemins d'entrée et de sortie des données
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         // Configuration des classes Mapper et Reducer
-        job.setMapperClass(TaskInstanceMapper.class);
-        job.setReducerClass(TaskReducer.class);
+        job.setMapperClass(CoreUsageMapper.class);
+        job.setReducerClass(CoreUsageReducer.class);
 
         // Définition des types de sortie du Mapper
-        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputKeyClass(IntWritable.class);
         job.setMapOutputValueClass(IntWritable.class);
 
-        // Définition des types de sortie finaux
-        job.setOutputKeyClass(Text.class);
+        // Définition des types de sortie du Mapper
+        job.setOutputKeyClass(IntWritable.class);
         job.setOutputValueClass(Text.class);
 
         // Exécution de la tâche MapReduce et attente de sa terminaison
@@ -47,7 +47,8 @@ public class TaskAnalysisDriver extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
         // Exécution de la tâche en utilisant ToolRunner qui gère les configurations
-        int exitCode = ToolRunner.run(new Configuration(), new TaskAnalysisDriver(), args);
+
+        int exitCode = ToolRunner.run(new Configuration(), new CpuUsageAnalysisDriver(), args);
         System.exit(exitCode);
     }
 }
