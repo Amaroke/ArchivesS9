@@ -47,7 +47,6 @@ public class CpuUsageAnalysisDriver extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
         // Exécution de la tâche en utilisant ToolRunner qui gère les configurations
-
         int exitCode = ToolRunner.run(new Configuration(), new CpuUsageAnalysisDriver(), args);
         System.exit(exitCode);
     }
