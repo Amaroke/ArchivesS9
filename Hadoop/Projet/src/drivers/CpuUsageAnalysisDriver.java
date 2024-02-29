@@ -1,5 +1,6 @@
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -37,7 +38,7 @@ public class CpuUsageAnalysisDriver extends Configured implements Tool {
         job.setMapOutputValueClass(IntWritable.class);
 
         // Définition des types de sortie du Mapper
-        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputKeyClass(NullWritable.class);
         job.setOutputValueClass(Text.class);
 
         // Exécution de la tâche MapReduce et attente de sa terminaison

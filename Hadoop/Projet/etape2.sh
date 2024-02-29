@@ -20,5 +20,5 @@ hadoop fs -mkdir /etape2
 hadoop jar MyHadoopApps.jar CpuUsageAnalysisDriver /corpus/selectionCourt.csv /etape2/etape2_court 
 hadoop fs -get /etape2/etape2_court/part-r-00000 ./output/etape2_$current_date/etape2_court.csv
 
-#hadoop jar MyHadoopApps.jar CpuUsageAnalysisDriver /corpus/selectionComplete.csv /etape2/etape2_complete
+hadoop jar MyHadoopApps.jar CpuUsageAnalysisDriver /corpus/selectionComplete.csv /etape2/etape2_complete
 hadoop fs -get /etape2/etape2_complete/part-r-00000 ./output/etape2_$current_date/etape2_complete.csv

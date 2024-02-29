@@ -3,10 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, IntWritable, Text> {
+public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, NullWritable, Text> {
 
     private List<Integer> coreList = new ArrayList<Integer>();
 
@@ -25,6 +26,9 @@ public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, IntWrita
 
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException {
+
+        List<Text> peakList = new ArrayList<>();
+
         for (int i = 1; i < coreList.size() - 1; i++) {
             int current = coreList.get(i);
             int next = coreList.get(i + 1);
@@ -40,11 +44,21 @@ public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, IntWrita
                 if (j != i + 1) {
                     int duration = j - i;
                     double average = (double) sum / duration;
-                    context.write(new IntWritable(i), new Text(
-                            "Peak from " + i + " to " + j + ", duration: " + duration + ", core average: "
-                                    + (int) average));
+                    peakList.add(new Text("Peak from " + i + " to " + j + ", duration: " + duration + ", core average: "
+                            + (int) average));
+
                 }
             }
+        }
+
+        peakList.sort((a, b) -> {
+            int aAvg = Integer.parseInt(a.toString().replaceAll(".*core average: (\\d+).*", "$1"));
+            int bAvg = Integer.parseInt(b.toString().replaceAll(".*core average: (\\d+).*", "$1"));
+            return Integer.compare(bAvg, aAvg);
+        });
+
+        for (Text peak : peakList) {
+            context.write(NullWritable.get(), peak);
         }
     }
 
