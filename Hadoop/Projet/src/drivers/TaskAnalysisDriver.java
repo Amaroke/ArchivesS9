@@ -12,12 +12,44 @@ import org.apache.hadoop.util.ToolRunner;
 public class TaskAnalysisDriver extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.out.printf("Usage: TaskAnalysisDriver <input dir> <output dir>\n");
+        if (args.length < 2) {
+            System.out.println(
+                    "Usage: JobAnalysisDriver <input dir> <output dir> -ignore <instance status to ignore: comma-separated list> -sort <column number> -separateFiles <column number> <filesNumber> <intervals: comma-separated list of intervals>");
             System.exit(-1);
         }
 
-        Configuration conf = this.getConf();
+        Configuration conf = new Configuration();
+
+        String[] instanceStatusToIgnore = null;
+        int sortColumn = -1;
+        int separateColumn = -1;
+        int filesNumber = -1;
+        String[] separateTasksIntervals = null;
+
+        for (int i = 2; i < args.length; i++) {
+            if (args[i].equals("-ignore")) {
+                instanceStatusToIgnore = args[++i].split(",");
+            } else if (args[i].equals("-sort")) {
+                sortColumn = Integer.parseInt(args[++i]);
+            } else if (args[i].equals("-separateFiles")) {
+                separateColumn = Integer.parseInt(args[++i]);
+                filesNumber = Integer.parseInt(args[++i]);
+                separateTasksIntervals = args[++i].split(",");
+            }
+        }
+
+        // Configurer les paramètres dans l'objet Configuration
+        if (instanceStatusToIgnore != null) {
+            conf.setStrings("instanceStatusToIgnore", instanceStatusToIgnore);
+        }
+        if (sortColumn != -1) {
+            conf.setInt("sortColumn", sortColumn);
+        }
+        if (separateColumn != -1 && filesNumber != -1 && separateTasksIntervals != null) {
+            conf.setInt("separateColumn", separateColumn);
+            conf.setInt("filesNumber", filesNumber);
+            conf.setStrings("separateTasksIntervals", separateTasksIntervals);
+        }
 
         // Création d'un nouveau job Map/Reduce et configuration
         Job job = Job.getInstance(conf);

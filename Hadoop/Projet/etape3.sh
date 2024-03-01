@@ -16,13 +16,12 @@ hadoop fs -mkdir /etape3
 # On compile le projet
 ./build_jar.sh
 
-# On lance les jobs et on récupère les résultats
+# On lance les jobs, on récupère les résultats et on supprime les fichiers de vérification CRC
+ère les résultats
 hadoop jar MyHadoopApps.jar CoreEstimationDriver -D mapreduce.job.reduces=2 /corpus/selectionCourt.csv /etape3/etape3_court 
 hadoop fs -getmerge /etape3/etape3_court/part-r-* ./output/etape3_$current_date/etape3_court.csv
+rm ./output/etape3_$current_date/.etape3_court.csv.crc
 
 hadoop jar MyHadoopApps.jar CoreEstimationDriver -D mapreduce.job.reduces=2 /corpus/selectionComplete.csv /etape3/etape3_complete
 hadoop fs -getmerge /etape3/etape3_complete/part-r-* ./output/etape3_$current_date/etape3_complete.csv
-
-# On supprime les fichiers de vérification CRC
-rm ./output/etape3_$current_date/.etape3_court.csv.crc
 rm ./output/etape3_$current_date/.etape3_complete.csv.crc

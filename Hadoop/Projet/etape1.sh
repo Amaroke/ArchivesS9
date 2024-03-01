@@ -16,21 +16,19 @@ hadoop fs -mkdir /etape1
 # On compile le projet
 ./build_jar.sh
 
-# On lance les jobs et on récupère les résultats
-hadoop jar MyHadoopApps.jar TaskAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionCourt.csv /etape1/etape1_1_court 
-hadoop fs -getmerge /etape1/etape1_1_court/part-r-* ./output/etape1_$current_date/etape1_1_court.csv
-
-hadoop jar MyHadoopApps.jar TaskAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionComplete.csv /etape1/etape1_1_complete
-hadoop fs -getmerge /etape1/etape1_1_complete/part-r-* ./output/etape1_$current_date/etape1_1_complete.csv
+# On lance les jobs, on récupère les résultats et on supprime les fichiers de vérification CRC
+hadoop jar MyHadoopApps.jar TaskAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionCourt.csv /etape1/etape1_1_court
+hadoop fs -getmerge /etape1/etape1_1_court/part-r-* ./output/etape1_$current_date/tasks_court.csv
+rm ./output/etape1_$current_date/.tasks_court.csv.crc
 
 hadoop jar MyHadoopApps.jar JobAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionCourt.csv /etape1/etape1_2_court
-hadoop fs -getmerge /etape1/etape1_2_court/part-r-* ./output/etape1_$current_date/etape1_2_court.csv
+hadoop fs -getmerge /etape1/etape1_2_court/part-r-* ./output/etape1_$current_date/jobs_court.csv
+rm ./output/etape1_$current_date/.jobs_court.csv.crc
+
+hadoop jar MyHadoopApps.jar TaskAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionComplete.csv /etape1/etape1_1_complete
+hadoop fs -getmerge /etape1/etape1_1_complete/part-r-* ./output/etape1_$current_date/tasks_complete.csv
+rm ./output/etape1_$current_date/.tasks_complete.csv.crc
 
 hadoop jar MyHadoopApps.jar JobAnalysisDriver -D mapreduce.job.reduces=2 /corpus/selectionComplete.csv /etape1/etape1_2_complete
-hadoop fs -getmerge /etape1/etape1_2_complete/part-r-* ./output/etape1_$current_date/etape1_2_complete.csv
-
-# On supprime les fichiers de vérification CRC
-rm ./output/etape1_$current_date/.etape1_1_court.csv.crc
-rm ./output/etape1_$current_date/.etape1_2_court.csv.crc
-rm ./output/etape1_$current_date/.etape1_1_complete.csv.crc
-rm ./output/etape1_$current_date/.etape1_2_complete.csv.crc
+hadoop fs -getmerge /etape1/etape1_2_complete/part-r-* ./output/etape1_$current_date/jobs_complete.csv
+rm ./output/etape1_$current_date/.jobs_complete.csv.crc

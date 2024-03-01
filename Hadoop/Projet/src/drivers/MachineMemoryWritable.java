@@ -1,9 +1,8 @@
-
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.WritableComparable;
+import org.apache.hadoop.io.Text;
 
 public class MachineMemoryWritable implements WritableComparable<MachineMemoryWritable> {
 
@@ -25,36 +24,59 @@ public class MachineMemoryWritable implements WritableComparable<MachineMemoryWr
     }
 
     public Text getMachineId() {
-        return this.machineId;
+        return machineId;
+    }
+
+    public void setMachineId(Text machineId) {
+        this.machineId = machineId;
     }
 
     public float getMemory() {
-        return this.memory;
+        return memory;
     }
 
-    @Override
-    public void readFields(DataInput in) throws IOException {
-        this.machineId.readFields(in);
-        this.memory = in.readFloat();
+    public void setMemory(float memory) {
+        this.memory = memory;
     }
 
     @Override
     public void write(DataOutput out) throws IOException {
-        this.machineId.write(out);
-        out.writeFloat(this.memory);
+        machineId.write(out);
+        out.writeFloat(memory);
     }
 
     @Override
-    public int compareTo(MachineMemoryWritable other) {
-        int cmp = this.machineId.compareTo(other.machineId);
+    public void readFields(DataInput in) throws IOException {
+        machineId.readFields(in);
+        memory = in.readFloat();
+    }
+
+    @Override
+    public int compareTo(MachineMemoryWritable o) {
+        int cmp = machineId.compareTo(o.machineId);
         if (cmp != 0) {
             return cmp;
         }
-        return Float.compare(this.memory, other.memory);
+        return Float.compare(memory, o.memory);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        MachineMemoryWritable that = (MachineMemoryWritable) o;
+        return Float.compare(that.memory, memory) == 0 && machineId.equals(that.machineId);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * machineId.hashCode() + Float.floatToIntBits(memory);
     }
 
     @Override
     public String toString() {
-        return this.machineId + "," + this.memory;
+        return machineId + ", " + memory;
     }
 }

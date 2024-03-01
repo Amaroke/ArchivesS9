@@ -26,12 +26,12 @@ public class MemoryRatioDriver extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         job.setMapperClass(MemoryUsageMapper.class);
-        job.setReducerClass(MemoryRatioReducer.class);
+        job.setReducerClass(MemoryUsageReducer.class);
 
-        job.setMapOutputKeyClass(MachinePairWritable.class);
+        job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(MachineMemoryWritable.class);
 
-        job.setOutputKeyClass(MachinePairWritable.class);
+        job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
         return job.waitForCompletion(true) ? 0 : 1;
