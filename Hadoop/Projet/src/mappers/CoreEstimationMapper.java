@@ -8,11 +8,11 @@ public class CoreEstimationMapper extends Mapper<Object, Text, Text, IntWritable
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
         String line = value.toString();
-        String[] tokens = line.split(",");
+        String[] fields = line.split(",");
 
-        if (tokens.length > 8) {
-            String machineId = tokens[6];
-            int maxCores = Integer.parseInt(tokens[8]); // Utilisation maximale des CPU
+        if (fields.length > 8) {
+            String machineId = fields[6];
+            int maxCores = Integer.parseInt(fields[8]); // Utilisation maximale des CPU
 
             context.write(new Text(machineId), new IntWritable(maxCores));
         }

@@ -17,6 +17,7 @@ public class JobInstanceMapper extends Mapper<LongWritable, Text, Text, Text> {
         String line = value.toString();
         String[] fields = line.split(",");
 
+        // On ignore les instances avec les status spécifiés
         if (instanceStatusToIgnore != null) {
             for (String status : instanceStatusToIgnore) {
                 if (fields[3].equals(status)) {

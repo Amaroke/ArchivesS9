@@ -25,6 +25,7 @@ public class JobAnalysisDriver extends Configured implements Tool {
         int filesNumber = -1;
         String[] separateTasksIntervals = null;
 
+        // On récupère les paramètres optionnels
         for (int i = 2; i < args.length; i++) {
             if (args[i].equals("-ignore")) {
                 instanceStatusToIgnore = args[++i].split(",");

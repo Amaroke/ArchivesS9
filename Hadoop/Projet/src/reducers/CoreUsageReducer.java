@@ -17,6 +17,7 @@ public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, NullWrit
 
         int totalCores = 0;
 
+        // On récupère la valeur maximale des coeurs utilisés pour chaque machine
         for (IntWritable value : values) {
             totalCores += value.get();
         }
@@ -29,6 +30,7 @@ public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, NullWrit
 
         List<Text> peakList = new ArrayList<>();
 
+        // On fait la liste des pics de consommation de CPU
         for (int i = 1; i < coreList.size() - 1; i++) {
             int current = coreList.get(i);
             int next = coreList.get(i + 1);
@@ -51,12 +53,14 @@ public class CoreUsageReducer extends Reducer<IntWritable, IntWritable, NullWrit
             }
         }
 
+        // On trie les pics par ordre décroissant de consommation de CPU
         peakList.sort((a, b) -> {
             int aAvg = Integer.parseInt(a.toString().replaceAll(".*core average: (\\d+).*", "$1"));
             int bAvg = Integer.parseInt(b.toString().replaceAll(".*core average: (\\d+).*", "$1"));
             return Integer.compare(bAvg, aAvg);
         });
 
+        // On écrit les pics
         for (Text peak : peakList) {
             context.write(NullWritable.get(), peak);
         }

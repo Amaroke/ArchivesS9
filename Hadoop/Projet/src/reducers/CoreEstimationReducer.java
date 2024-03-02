@@ -9,6 +9,7 @@ public class CoreEstimationReducer extends Reducer<Text, IntWritable, Text, IntW
     public void reduce(Text key, Iterable<IntWritable> values, Context context)
             throws IOException, InterruptedException {
 
+        // On récupère la valeur maximale des coeurs utilisés pour chaque machine
         int maxCores = 0;
         for (IntWritable value : values) {
             maxCores = Math.max(maxCores, value.get());
