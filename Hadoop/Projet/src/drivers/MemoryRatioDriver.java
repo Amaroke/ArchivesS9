@@ -1,4 +1,5 @@
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -31,7 +32,7 @@ public class MemoryRatioDriver extends Configured implements Tool {
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(MachineMemoryWritable.class);
 
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(NullWritable.class);
         job.setOutputValueClass(Text.class);
 
         return job.waitForCompletion(true) ? 0 : 1;

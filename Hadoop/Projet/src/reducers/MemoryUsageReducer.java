@@ -1,3 +1,4 @@
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MemoryUsageReducer extends Reducer<Text, MachineMemoryWritable, Text, Text> {
+public class MemoryUsageReducer extends Reducer<Text, MachineMemoryWritable, NullWritable, Text> {
 
     @Override
     public void reduce(Text key, Iterable<MachineMemoryWritable> values, Context context)
@@ -30,7 +31,7 @@ public class MemoryUsageReducer extends Reducer<Text, MachineMemoryWritable, Tex
 
                 if (ratio != 1.0) { // Exclure les ratios égaux à 1
                     String output = machines.get(i) + ";" + machines.get(j) + ";" + ratio;
-                    context.write(key, new Text(output));
+                    context.write(NullWritable.get(), new Text(output));
                 }
             }
         }
