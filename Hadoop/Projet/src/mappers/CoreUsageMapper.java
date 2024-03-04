@@ -14,11 +14,11 @@ public class CoreUsageMapper extends Mapper<LongWritable, Text, IntWritable, Int
         if (fields.length > 7) {
             int startTime = Integer.parseInt(fields[4]); // Seconde de début
             int endTime = Integer.parseInt(fields[5]); // Seconde de fin
-            int maxCores = Integer.parseInt(fields[7]); // Consommation maximale des cœurs
+            int meanCores = Integer.parseInt(fields[7]); // Consommation moyenne des cœurs
 
             // Émettre la consommation des cœurs pour chaque seconde de la tâche
             for (int i = startTime; i <= endTime; i++) {
-                context.write(new IntWritable(i), new IntWritable(maxCores));
+                context.write(new IntWritable(i), new IntWritable(meanCores));
             }
         }
     }
